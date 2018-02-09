@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,8 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
+import rainmtime.com.demorepo.movies.ui.MovieFragment;
+import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,6 +40,15 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
 
+    @BindView(R.id.viewPager)
+    ViewPager mViewPager;
+
+    @BindView(R.id.tabs)
+    TabLayout mTabLayout;
+
+
+    private FragmentPagerAdapter mFragmentPagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(mToolbar);
 
         initView();
+        initPagerAdapterAndTabs();
     }
 
 
@@ -59,11 +78,23 @@ public class MainActivity extends AppCompatActivity
         mNavigationView.setNavigationItemSelectedListener(this);
     }
 
+
+    private void initPagerAdapterAndTabs() {
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new MovieFragment());
+
+        ArrayList<String> fragmentTitles = new ArrayList<>();
+        fragmentTitles.add(ResUtils.getString(R.string.tab_one_title));
+        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(), fragments, fragmentTitles);
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+            mDrawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -111,8 +142,7 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        mDrawer.closeDrawer(GravityCompat.START);
         return true;
     }
 }
