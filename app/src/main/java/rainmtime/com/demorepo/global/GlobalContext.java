@@ -1,7 +1,9 @@
 package rainmtime.com.demorepo.global;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import java.util.concurrent.atomic.AtomicReference;
@@ -47,6 +49,14 @@ public class GlobalContext {
 
     public Resources getResources() {
         return mApplication.getResources();
+    }
+
+    public SharedPreferences getDefaultGlobalSharedPreferences() {
+        return PreferenceManager.getDefaultSharedPreferences(mApplication);
+    }
+
+    public Application getApplication() {
+        return mApplication;
     }
 
 }
