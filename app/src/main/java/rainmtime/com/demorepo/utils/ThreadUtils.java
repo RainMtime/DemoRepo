@@ -8,7 +8,7 @@ import android.os.Looper;
  * Email: 746431278@qq.com
  */
 
-public class ThreadUtils {
+public final class ThreadUtils {
 
     private static Thread sMainThread = Looper.getMainLooper().getThread();
     private static Handler sMainHandle = new Handler(Looper.getMainLooper());

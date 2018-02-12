@@ -5,7 +5,7 @@ package rainmtime.com.demorepo.utils;
  * Email: 746431278@qq.com
  */
 
-public class AssertUtils {
+public final class AssertUtils {
 
     public AssertUtils() {
     }
