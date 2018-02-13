@@ -18,11 +18,20 @@ public final class StorageUtils {
 
 
     /**
-     * @return 获取在其中存储内部文件的文件系统目录的绝对路径。
+     * @return 获取在其中存储内部文件的文件系统目录的绝对路径。 /data/user/0/rainmtime.com.demorepo/files
      */
     public static File getFilesDir() {
         return GlobalContext.get().getApplication().getFilesDir();
     }
+
+
+    /**
+     * @return 返回存储数据库文件的目录
+     */
+    public static File getDataBaseDir(String dbName) {
+        return GlobalContext.get().getApplication().getDatabasePath(dbName);
+    }
+
 
     /**
      * <pre>
@@ -101,14 +110,15 @@ public final class StorageUtils {
 
 
     /**
-     * 02-12 17:31:47.776 16446-16446/rainmtime.com.demorepo W/StorageUtils: getExternalStoragePublicDirectory(music):   /storage/emulated/0/Music
-     * 02-12 17:31:47.778 16446-16446/rainmtime.com.demorepo W/StorageUtils: getExternalStorageDirectory:   /storage/emulated/0
-     * 02-12 17:31:47.778 16446-16446/rainmtime.com.demorepo W/StorageUtils: getDownloadCacheDirectory:   /data/cache
-     * 02-12 17:31:47.781 16446-16446/rainmtime.com.demorepo E/StorageUtils: getExternalCacheDir:   /storage/emulated/0/Android/data/rainmtime.com.demorepo/cache
-     * 02-12 17:31:47.783 16446-16446/rainmtime.com.demorepo E/StorageUtils: getExternalFilesDir：/storage/emulated/0/Android/data/rainmtime.com.demorepo/files/Music
-     * 02-12 17:31:47.784 16446-16446/rainmtime.com.demorepo W/StorageUtils: getRootDirectory:   /system
-     * 02-12 17:31:47.784 16446-16446/rainmtime.com.demorepo W/StorageUtils: getDataDirectory:   /data
-     * 02-12 17:31:47.784 16446-16446/rainmtime.com.demorepo E/StorageUtils: getFilesDir:   /data/user/0/rainmtime.com.demorepo/files
+     * 02-13 11:40:12.056 18501-18501/rainmtime.com.demorepo W/StorageUtils: getExternalStoragePublicDirectory(music):   /storage/emulated/0/Music
+     * 02-13 11:40:12.057 18501-18501/rainmtime.com.demorepo W/StorageUtils: getExternalStorageDirectory:   /storage/emulated/0
+     * 02-13 11:40:12.057 18501-18501/rainmtime.com.demorepo W/StorageUtils: getDownloadCacheDirectory:   /data/cache
+     * 02-13 11:40:12.058 18501-18501/rainmtime.com.demorepo E/StorageUtils: getExternalCacheDir:   /storage/emulated/0/Android/data/rainmtime.com.demorepo/cache
+     * 02-13 11:40:12.060 18501-18501/rainmtime.com.demorepo E/StorageUtils: getExternalFilesDir：/storage/emulated/0/Android/data/rainmtime.com.demorepo/files/Music
+     * 02-13 11:40:12.060 18501-18501/rainmtime.com.demorepo W/StorageUtils: getRootDirectory:   /system
+     * 02-13 11:40:12.060 18501-18501/rainmtime.com.demorepo W/StorageUtils: getDataDirectory:   /data
+     * 02-13 11:40:12.060 18501-18501/rainmtime.com.demorepo E/StorageUtils: getFilesDir:   /data/user/0/rainmtime.com.demorepo/files
+     * 02-13 11:40:12.060 18501-18501/rainmtime.com.demorepo I/StorageUtils: getDatabasePath:/data/user/0/rainmtime.com.demorepo/databases/test
      */
     public static void printDir() {
         if (StorageUtils.isExternalStorageWritable()) {
@@ -121,6 +131,7 @@ public final class StorageUtils {
             Log.w(TAG, "getRootDirectory:   " + Environment.getRootDirectory());
             Log.w(TAG, "getDataDirectory:   " + Environment.getDataDirectory());
             Log.e(TAG, "getFilesDir:   " + StorageUtils.getFilesDir());
+            Log.i(TAG, "getDatabasePath:" + GlobalContext.get().getApplication().getDatabasePath("test"));
         }
     }
 

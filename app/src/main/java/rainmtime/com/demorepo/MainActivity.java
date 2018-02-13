@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
+import rainmtime.com.demorepo.sqlitedemo.SqliteTestUtils;
 import rainmtime.com.demorepo.utils.ResUtils;
 import rainmtime.com.demorepo.utils.StorageUtils;
 
@@ -68,7 +69,11 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                //测试存储文件的目录
                 StorageUtils.printDir();
+
+                //测试数据库存储
+                SqliteTestUtils.sqliteTest();
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
