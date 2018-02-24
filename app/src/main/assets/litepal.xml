@@ -32,6 +32,8 @@
     	</list>
     -->
     <list>
+        <mapping class="rainmtime.com.demorepo.orm.litepal.model.Album" />
+        <mapping class="rainmtime.com.demorepo.orm.litepal.model.Song" />
     </list>
 
     <!--

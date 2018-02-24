@@ -38,8 +38,5 @@ public class DemoApplication extends Application {
         if (sInitialized.compareAndSet(false, true)) {
             GlobalContext.set(new GlobalContext(this));
         }
-
     }
-
-
 }
