@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
-import rainmtime.com.demorepo.sqlitedemo.SqliteTestUtils;
+import rainmtime.com.demorepo.orm.sqlitedemo.SqliteUtils;
 import rainmtime.com.demorepo.utils.ResUtils;
 import rainmtime.com.demorepo.utils.StorageUtils;
 
@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity
 
     @BindView(R.id.fab)
     FloatingActionButton mFab;
+
+    @BindView(R.id.fableft)
+    FloatingActionButton mFabLeft;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
@@ -73,7 +76,14 @@ public class MainActivity extends AppCompatActivity
                 StorageUtils.printDir();
 
                 //测试数据库存储
-                SqliteTestUtils.sqliteTest();
+                SqliteUtils.sqliteTest();
+            }
+        });
+
+        mFabLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
