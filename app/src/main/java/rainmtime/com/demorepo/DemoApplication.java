@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 
+import org.litepal.LitePal;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import rainmtime.com.demorepo.global.GlobalContext;
@@ -22,6 +24,7 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        LitePal.initialize(this);
 
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
