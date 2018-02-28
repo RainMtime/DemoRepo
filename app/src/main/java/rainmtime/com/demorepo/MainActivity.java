@@ -1,6 +1,5 @@
 package rainmtime.com.demorepo;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,8 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 
@@ -86,7 +83,22 @@ public class MainActivity extends AppCompatActivity
         mFabLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SQLiteDatabase sq = LitePal.getDatabase();
+
+
+                // litePal 测试代码片段
+//                LogUtil.level = 1;
+//                Album album = new Album();
+//                album.setCover("https://goo.gl/images/K5N4HH");
+//                album.setName("你好,旧时光2");
+//                album.setPrice(19.99f);
+//                album.save();
+//
+//                Song song1 = new Song();
+//                song1.setAlbum(album);
+//                song1.setDuration(1000);
+//                song1.setName("时间遐想3");
+//                song1.save();
+//                Song song = DataSupport.find(Song.class, 2);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

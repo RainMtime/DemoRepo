@@ -18,12 +18,13 @@ public class Album extends DataSupport {
 
     private float price;
 
-    private byte[] cover;
+    private String cover;
 
     private List<Song> songs = new ArrayList<Song>();
 
     public String getName() {
         return name;
+
     }
 
     public void setName(String name) {
@@ -38,11 +39,11 @@ public class Album extends DataSupport {
         this.price = price;
     }
 
-    public byte[] getCover() {
+    public String getCover() {
         return cover;
     }
 
-    public void setCover(byte[] cover) {
+    public void setCover(String cover) {
         this.cover = cover;
     }
 
