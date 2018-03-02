@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/asmr_source_halo"
+        android:minWidth="90dp"
+        android:minHeight="90dp"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:maxWidth="300dp"
+        android:maxHeight="300dp"
+        android:tint="@color/A1"
+        android:src="@drawable/asmr_light" />
+
+
+    <ImageView
+        android:id="@+id/asmr_source_circle"
+        android:layout_centerInParent="true"
+        android:src="@drawable/asmr_circle"
+        android:tint="@color/A1"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
+        android:minWidth="80dp"
+        android:minHeight="80dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp" />
+
+
+    <ImageView
+        android:id="@+id/asmr_source_icon"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_asmr_coffee"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+</RelativeLayout>
