@@ -27,6 +27,9 @@ public class ASMRSourceLayout extends FrameLayout {
 
     private float mScaleFactor = 1.0f;
 
+
+    private float mTranlationX = 0;
+    private float mTranlationY = 0;
     //音频光晕背景
     private ImageView mHalo;
     //音频圆形背景
@@ -59,7 +62,7 @@ public class ASMRSourceLayout extends FrameLayout {
         mGestureDetector.onTouchEvent(event);
         mScaleGestureDetector.onTouchEvent(event);
 
-        return true;
+        return super.onTouchEvent(event);
     }
 
     private void init(Context context) {
@@ -86,7 +89,13 @@ public class ASMRSourceLayout extends FrameLayout {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            Log.i(TAG, "distanceX:" + distanceY + "distanceY:" + distanceY);
+            mTranlationX += distanceX;
+            mTranlationY += distanceY;
+//
+//            setTranslationX(-mTranlationX);
+//            setTranslationY(-mTranlationY);
+
+            Log.i(TAG, "distanceX:" + distanceX + "distanceY:" + distanceY);
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
     }
@@ -100,6 +109,14 @@ public class ASMRSourceLayout extends FrameLayout {
             mCircleBackground.setScaleY(mScaleFactor);
             Log.i(TAG, "scaleFactor:" + detector.getScaleFactor());
             return true;
+        }
+    }
+
+
+    public void setCircleBackgroundScale(float scale) {
+        if (mCircleBackground != null) {
+            mCircleBackground.setScaleY(scale);
+            mCircleBackground.setScaleX(scale);
         }
     }
 

@@ -6,8 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import javax.annotation.Nonnull;
 
 import rainmtime.com.demorepo.R;
 
@@ -20,6 +25,17 @@ public class ASMRLayout extends FrameLayout {
 
     private static final String TAG = "ASMRLayout";
 
+
+    private GestureDetector mGestureDetector;
+
+    private ScaleGestureDetector mScaleGestureDetector;
+
+    private float mScaleFactor = 1.0f;
+    private float mTranlationX = 0;
+    private float mTranlationY = 0;
+
+
+    private int mSelectIndex = 0;
     private ViewDragHelper mViewDragHelper = null;
 
     private ASMRSourceLayout mSource1;
@@ -27,31 +43,43 @@ public class ASMRLayout extends FrameLayout {
 
     public ASMRLayout(@NonNull Context context) {
         super(context);
-        init();
+        init(context);
     }
 
     public ASMRLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(context);
     }
 
     public ASMRLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
-    private void init() {
+    private void init(Context context) {
         mViewDragHelper = ViewDragHelper.create(this, 1.0f, new ASMRViewDragCallbackImp());
+
+        mGestureDetector = new GestureDetector(context, new GestureDetectorListenerImpl());
+        mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleDetectorListenerImpl());
     }
 
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        mViewDragHelper.processTouchEvent(event);
-//        return true;
-//    }
-//
-//    @Override
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+
+        mGestureDetector.onTouchEvent(event);
+        mScaleGestureDetector.onTouchEvent(event);
+        return true;
+    }
+
+
+    private void handleEvent(@Nonnull MotionEvent event) {
+
+
+    }
+
+    //    @Override
 //    public boolean onInterceptTouchEvent(MotionEvent ev) {
 //        final int action = ev.getActionMasked();
 //
@@ -96,6 +124,36 @@ public class ASMRLayout extends FrameLayout {
             return super.clampViewPositionHorizontal(child, left, dx);
         }
 
+    }
+
+    private class GestureDetectorListenerImpl extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            mTranlationX += distanceX;
+            mTranlationY += distanceY;
+//
+//            setTranslationX(-mTranlationX);
+//            setTranslationY(-mTranlationY);
+
+            mSource1.setTranslationX(-mTranlationX);
+            mSource1.setTranslationY(-mTranlationY);
+
+
+            Log.i(TAG, "distanceX:" + distanceX + "distanceY:" + distanceY);
+            return super.onScroll(e1, e2, distanceX, distanceY);
+        }
+    }
+
+    private class ScaleDetectorListenerImpl extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+
+            mScaleFactor *= detector.getScaleFactor();
+            mSource1.setCircleBackgroundScale(mScaleFactor);
+            Log.i(TAG, "scaleFactor:" + detector.getScaleFactor());
+            return true;
+        }
     }
 
 }
