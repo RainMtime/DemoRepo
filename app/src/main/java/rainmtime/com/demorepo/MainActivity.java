@@ -1,5 +1,6 @@
 package rainmtime.com.demorepo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
 import rainmtime.com.demorepo.orm.sqlitedemo.SqliteUtils;
+import rainmtime.com.demorepo.test_code.viewdraghelper.ViewDragHelperActivity;
 import rainmtime.com.demorepo.utils.ResUtils;
 import rainmtime.com.demorepo.utils.StorageUtils;
 
@@ -84,7 +86,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-
+                Intent intent = new Intent(MainActivity.this, ViewDragHelperActivity.class);
+                startActivity(intent);
                 // litePal 测试代码片段
 //                LogUtil.level = 1;
 //                Album album = new Album();
