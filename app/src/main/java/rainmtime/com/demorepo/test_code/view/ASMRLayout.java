@@ -12,6 +12,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import java.util.ArrayList;
+
 import javax.annotation.Nonnull;
 
 import rainmtime.com.demorepo.R;
@@ -25,6 +27,8 @@ public class ASMRLayout extends FrameLayout {
 
     private static final String TAG = "ASMRLayout";
 
+    ArrayList<ASMRSourceLayout> mMusicSources = new ArrayList<>();
+
 
     private GestureDetector mGestureDetector;
 
@@ -35,7 +39,7 @@ public class ASMRLayout extends FrameLayout {
     private float mTranlationY = 0;
 
 
-    private int mSelectIndex = 0;
+    private int mSelectIndex = -1;
     private ViewDragHelper mViewDragHelper = null;
 
     private ASMRSourceLayout mSource1;
@@ -94,7 +98,9 @@ public class ASMRLayout extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mSource1 = findViewById(R.id.asmr_source1);
+        final ASMRSourceLayout source1 = findViewById(R.id.asmr_source1);
+        mMusicSources.add(source1);
+
     }
 
     private class ASMRViewDragCallbackImp extends ViewDragHelper.Callback {
@@ -135,9 +141,7 @@ public class ASMRLayout extends FrameLayout {
 //
 //            setTranslationX(-mTranlationX);
 //            setTranslationY(-mTranlationY);
-
-            mSource1.setTranslationX(-mTranlationX);
-            mSource1.setTranslationY(-mTranlationY);
+            setSelectSourceTranslationX(-mTranlationX, -mTranlationY);
 
 
             Log.i(TAG, "distanceX:" + distanceX + "distanceY:" + distanceY);
@@ -153,6 +157,15 @@ public class ASMRLayout extends FrameLayout {
             mSource1.setCircleBackgroundScale(mScaleFactor);
             Log.i(TAG, "scaleFactor:" + detector.getScaleFactor());
             return true;
+        }
+    }
+
+    private void setSelectSourceTranslationX(float translationX, float translationY) {
+        if (mSelectIndex >= 0 && mSelectIndex < mMusicSources.size()) {
+            mMusicSources.get(mSelectIndex).setTranslationX(translationX);
+            mMusicSources.get(mSelectIndex).setTranslationY(translationY);
+        } else {
+            Log.e(TAG, "errorSelectIndex:" + mSelectIndex);
         }
     }
 
