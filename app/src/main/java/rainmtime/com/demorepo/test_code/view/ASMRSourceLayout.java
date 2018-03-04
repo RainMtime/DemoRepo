@@ -84,6 +84,10 @@ public class ASMRSourceLayout extends FrameLayout {
         return (width - circleBackgroundWidth) / 2;
     }
 
+    public int getBgCircleRadiu(){
+        return getWidth()/2;
+    }
+
 
     private class GestureDetectorListenerImpl extends GestureDetector.SimpleOnGestureListener {
 

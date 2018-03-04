@@ -1,6 +1,7 @@
 package rainmtime.com.demorepo.test_code.view;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.ViewDragHelper;
@@ -34,12 +35,22 @@ public class ASMRLayout extends FrameLayout {
 
     private ScaleGestureDetector mScaleGestureDetector;
 
+
     private float mScaleFactor = 1.0f;
     private float mTranlationX = 0;
     private float mTranlationY = 0;
 
 
+    private static final int STATE_IDEL = 1;
+
+    private static final int STATE_DRAGING = 2;
+
+    private static final int STATE_SCALE = 3;
+
+
     private int mSelectIndex = -1;
+
+    private int mSecondSelectedIndex = -1;
     private ViewDragHelper mViewDragHelper = null;
 
     private ASMRSourceLayout mSource1;
@@ -64,23 +75,63 @@ public class ASMRLayout extends FrameLayout {
         mViewDragHelper = ViewDragHelper.create(this, 1.0f, new ASMRViewDragCallbackImp());
 
         mGestureDetector = new GestureDetector(context, new GestureDetectorListenerImpl());
-        mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleDetectorListenerImpl());
+//        mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleDetectorListenerImpl());
     }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-
+        handleEvent(event);
         mGestureDetector.onTouchEvent(event);
-        mScaleGestureDetector.onTouchEvent(event);
+//        mScaleGestureDetector.onTouchEvent(event);
         return true;
     }
 
 
     private void handleEvent(@Nonnull MotionEvent event) {
 
+        int pointerCount = event.getPointerCount();
 
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_POINTER_DOWN:
+                break;
+
+            case MotionEvent.ACTION_DOWN:
+                if (mSelectIndex == -1) {
+                    float touchX = event.getX(0);
+                    float touchY = event.getY(0);
+                    mSelectIndex = isHit(touchX, touchY);
+                }
+                break;
+
+            case MotionEvent.ACTION_UP:
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                break;
+        }
+
+
+    }
+
+    private int isHit(float touchx, float touchY) {
+        for (int i = 0; i < mMusicSources.size(); i++) {
+            ASMRSourceLayout layout = mMusicSources.get(i);
+            float centerX = layout.getX() + layout.getWidth() / 2;
+            float centerY = layout.getY() + layout.getHeight() / 2;
+
+            float bgCircleWidth = layout.getBgCircleRadiu();
+
+
+            if (Math.pow(touchx - centerX, 2) + Math.pow(touchY - centerY, 2) < bgCircleWidth * bgCircleWidth) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     //    @Override
