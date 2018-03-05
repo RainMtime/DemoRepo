@@ -11,4 +11,22 @@
 
     </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
 
+
+    <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
+        android:layout_marginTop="100dp"
+        android:id="@+id/asmr_source2"
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+
+    </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
+
+
+    <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
+        android:layout_marginLeft="200dp"
+        android:id="@+id/asmr_source3"
+        android:layout_width="300dp"
+        android:layout_height="300dp">
+
+    </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
+
 </rainmtime.com.demorepo.test_code.view.ASMRLayout>

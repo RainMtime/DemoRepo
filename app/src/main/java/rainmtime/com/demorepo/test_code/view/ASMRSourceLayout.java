@@ -84,8 +84,8 @@ public class ASMRSourceLayout extends FrameLayout {
         return (width - circleBackgroundWidth) / 2;
     }
 
-    public int getBgCircleRadiu(){
-        return getWidth()/2;
+    public int getBgCircleRadiu() {
+        return mCircleBackground.getWidth() / 2;
     }
 
 
@@ -123,7 +123,6 @@ public class ASMRSourceLayout extends FrameLayout {
             mCircleBackground.setScaleX(scale);
         }
     }
-
 
 
 }

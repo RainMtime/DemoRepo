@@ -1,7 +1,6 @@
 package rainmtime.com.demorepo.test_code.view;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.ViewDragHelper;
@@ -41,11 +40,13 @@ public class ASMRLayout extends FrameLayout {
     private float mTranlationY = 0;
 
 
-    private static final int STATE_IDEL = 1;
+    private static final int STATE_IDEL = 0;
 
-    private static final int STATE_DRAGING = 2;
+    private static final int STATE_DRAGING = 1;
 
-    private static final int STATE_SCALE = 3;
+    private static final int STATE_SCALE = 2;
+
+    private int mState = STATE_IDEL;
 
 
     private int mSelectIndex = -1;
@@ -102,16 +103,25 @@ public class ASMRLayout extends FrameLayout {
                     float touchX = event.getX(0);
                     float touchY = event.getY(0);
                     mSelectIndex = isHit(touchX, touchY);
+                    if (mSelectIndex == -1) {
+                        mState = STATE_IDEL;
+                    } else {
+                        mState = STATE_DRAGING;
+                    }
                 }
                 break;
 
             case MotionEvent.ACTION_UP:
+                mSelectIndex = -1;
+                mState = STATE_IDEL;
                 break;
 
             case MotionEvent.ACTION_POINTER_UP:
+
                 break;
 
             case MotionEvent.ACTION_MOVE:
+
                 break;
         }
 
@@ -150,7 +160,11 @@ public class ASMRLayout extends FrameLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         final ASMRSourceLayout source1 = findViewById(R.id.asmr_source1);
+        final ASMRSourceLayout source2 = findViewById(R.id.asmr_source2);
+        final ASMRSourceLayout source3 = findViewById(R.id.asmr_source3);
         mMusicSources.add(source1);
+        mMusicSources.add(source2);
+        mMusicSources.add(source3);
 
     }
 
@@ -187,14 +201,8 @@ public class ASMRLayout extends FrameLayout {
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            mTranlationX += distanceX;
-            mTranlationY += distanceY;
-//
-//            setTranslationX(-mTranlationX);
-//            setTranslationY(-mTranlationY);
-            setSelectSourceTranslationX(-mTranlationX, -mTranlationY);
 
-
+            setSelectSourceOffset(-(int) distanceX, -(int) distanceY);
             Log.i(TAG, "distanceX:" + distanceX + "distanceY:" + distanceY);
             return super.onScroll(e1, e2, distanceX, distanceY);
         }
@@ -208,6 +216,17 @@ public class ASMRLayout extends FrameLayout {
             mSource1.setCircleBackgroundScale(mScaleFactor);
             Log.i(TAG, "scaleFactor:" + detector.getScaleFactor());
             return true;
+        }
+    }
+
+    private void setSelectSourceOffset(int dx, int dy) {
+        if (mSelectIndex >= 0 && mSelectIndex < mMusicSources.size()) {
+            mMusicSources.get(mSelectIndex).offsetTopAndBottom(dy);
+
+            mMusicSources.get(mSelectIndex).offsetLeftAndRight(dx);
+
+        } else {
+            Log.e(TAG, "errorSelectIndex:" + mSelectIndex);
         }
     }
 
