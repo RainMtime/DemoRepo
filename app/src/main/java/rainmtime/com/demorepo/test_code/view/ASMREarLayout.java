@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import javax.annotation.Nonnull;
@@ -112,8 +113,32 @@ public class ASMREarLayout extends FrameLayout {
 
                 FrameLayout.LayoutParams layoutParams = (LayoutParams) mEarLayout.getLayoutParams();
                 if (layoutParams != null) {
+
+
                     int left = (int) (mEarLayout.getLeft() + xyVelocity[0] / VELOCITY_SCALE_TIMES);
                     int top = (int) (mEarLayout.getTop() + xyVelocity[1] / VELOCITY_SCALE_TIMES);
+
+                    if (mEarLayout.isLeftOutSideFromParent()) {
+                        left = 0;
+                        xyVelocity[0] = -xyVelocity[0];
+                    }
+
+                    if (mEarLayout.isTopOutSideFromParent()) {
+                        top = 0;
+                        xyVelocity[1] = -xyVelocity[1];
+                    }
+
+
+                    if (mEarLayout.isBottomOutSideFromParent()) {
+                        top = mEarLayout.getParentHeight() - mEarLayout.getHeight();
+                        xyVelocity[1] = -xyVelocity[1];
+                    }
+
+                    if (mEarLayout.isRightOutSideFromParent()) {
+                        left = mEarLayout.getParentWidth() - mEarLayout.getWidth();
+                        xyVelocity[0] = -xyVelocity[0];
+                    }
+
 
                     layoutParams.leftMargin = left;
                     layoutParams.topMargin = top;
@@ -128,6 +153,64 @@ public class ASMREarLayout extends FrameLayout {
 
             }
         }
+    }
+
+    public boolean isLeftOutSideFromParent() {
+        int left = getLeft();
+        if (left < 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isRightOutSideFromParent() {
+        int right = getRight();
+        ViewGroup parentView = (ViewGroup) getParent();
+        if (parentView != null) {
+            int parentWidth = parentView.getWidth();
+            if (right > parentWidth) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isTopOutSideFromParent() {
+        int top = getTop();
+        if (top < 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isBottomOutSideFromParent() {
+        int bottom = getBottom();
+        ViewGroup parentView = (ViewGroup) getParent();
+        if (parentView != null) {
+            int parentHeight = parentView.getHeight();
+            if (bottom > parentHeight) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getParentWidth() {
+        ViewGroup parentView = (ViewGroup) getParent();
+
+        if (parentView != null) {
+            return parentView.getWidth();
+        }
+        return 0;
+
+    }
+
+    public int getParentHeight() {
+        ViewGroup parentView = (ViewGroup) getParent();
+        if (parentView != null) {
+            return parentView.getHeight();
+        }
+        return 0;
     }
 
 }
