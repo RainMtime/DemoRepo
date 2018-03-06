@@ -62,6 +62,12 @@ public class ASMRSourceLayout extends FrameLayout {
         mCircleBackground = rootView.findViewById(R.id.asmr_source_circle);
         mMusicIcon = rootView.findViewById(R.id.asmr_source_icon);
 
+        mCircleBackground.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("chunyu-onclick", "circleBackground:");
+            }
+        });
 
         mCircleBackground.setDragListener(new ScaleDragView.DragListener() {
             @Override

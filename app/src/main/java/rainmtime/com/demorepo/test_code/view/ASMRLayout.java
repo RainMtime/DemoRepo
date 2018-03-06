@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import rainmtime.com.demorepo.R;
@@ -34,13 +36,23 @@ public class ASMRLayout extends FrameLayout {
 
     private void init(Context context) {
     }
-    
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         final ASMRSourceLayout source1 = findViewById(R.id.asmr_source1);
         final ASMRSourceLayout source2 = findViewById(R.id.asmr_source2);
         final ASMRSourceLayout source3 = findViewById(R.id.asmr_source3);
+
+
+        final ASMREarLayout earLayout = findViewById(R.id.asmr_ear_layout);
+
+        earLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("chunyu-onclick", "onClick earLayout");
+            }
+        });
     }
 
 }

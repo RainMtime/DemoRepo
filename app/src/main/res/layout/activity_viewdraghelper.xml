@@ -1,32 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rainmtime.com.demorepo.test_code.view.ASMRLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorBlack"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
-        android:id="@+id/asmr_source1"
-        android:layout_width="300dp"
-        android:layout_height="300dp">
+        <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
+            android:id="@+id/asmr_source1"
+            android:layout_width="300dp"
+            android:layout_height="300dp">
 
-    </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
-
-
-    <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
-        android:layout_marginTop="100dp"
-        android:id="@+id/asmr_source2"
-        android:layout_width="300dp"
-        android:layout_height="300dp">
-
-    </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
+        </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
 
 
-    <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
-        android:layout_marginLeft="200dp"
-        android:id="@+id/asmr_source3"
-        android:layout_width="300dp"
-        android:layout_height="300dp">
+        <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
+            android:layout_marginTop="100dp"
+            android:id="@+id/asmr_source2"
+            android:layout_width="300dp"
+            android:layout_height="300dp">
 
-    </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
+        </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
+
+
+        <rainmtime.com.demorepo.test_code.view.ASMRSourceLayout
+            android:layout_marginLeft="200dp"
+            android:id="@+id/asmr_source3"
+            android:layout_width="300dp"
+            android:layout_height="300dp">
+
+        </rainmtime.com.demorepo.test_code.view.ASMRSourceLayout>
+    </FrameLayout>
+
+
+    <rainmtime.com.demorepo.test_code.view.ASMREarLayout
+        android:id="@+id/asmr_ear_layout"
+        android:layout_marginTop="300dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp" />
 
 </rainmtime.com.demorepo.test_code.view.ASMRLayout>

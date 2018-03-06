@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 
 /**
  * Created by chunyu on 2018/3/1 上午10:55.
@@ -12,13 +13,12 @@ import android.view.MotionEvent;
  */
 
 public class ScaleDragView extends android.support.v7.widget.AppCompatImageView {
-    private static final String TAG = "ScaleView";
+    private static final String TAG = "ScaleDragView";
 
     private static final float DISTANCE_RULE = 100;
 
 
     private float mBeginDistance = 0.0f;
-
 
     private float mCurrentDistance = 0.0f;
 
@@ -55,7 +55,10 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
     }
 
     private void init(Context context) {
-
+        //因为imageView 是不可点击的View ，设置成让其可以点击，这样才能够不漏掉event
+        setClickable(true);
+        setFocusable(true);
+        setFocusableInTouchMode(true);
     }
 
 
@@ -73,7 +76,12 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        handleEvent(event);
+        return super.dispatchTouchEvent(event);
+    }
+
+    private void handleEvent(MotionEvent event) {
         // 判断出当前有几个点
         int pointerCount = event.getPointerCount();
         switch (event.getActionMasked()) {
@@ -101,6 +109,16 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
                 }
                 mLastX = event.getRawX();
                 mLastY = event.getRawY();
+                if (pointerCount == 1) {
+//获得速度追踪对象
+                    VelocityTracker velocity = VelocityTracker.obtain();
+                    velocity.addMovement(event);
+//计算速度 并获取计算值
+                    velocity.computeCurrentVelocity(100); //设定一个时间间隔值
+                    float xVelocity = velocity.getXVelocity();
+                    float yVelocity = velocity.getYVelocity();
+                    Log.i("chunyu-veloc", "velocityX:" + xVelocity + "\t velocityY:" + yVelocity);
+                }
 
                 if (mState == STATE_CAN_SCALE) {
                     int[] beginXY = new int[2];
@@ -136,8 +154,11 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
                 mLastY = 0;
                 break;
         }
+    }
 
-        return true;
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
     }
 
 
