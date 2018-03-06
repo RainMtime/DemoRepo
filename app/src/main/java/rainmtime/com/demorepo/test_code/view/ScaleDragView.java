@@ -28,6 +28,20 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
 
     private BringViewToFrontListener mBringViewToFrontListener;
 
+    private ControlEarListener mControlEarListener;
+
+    private static final int VELOCITY_COLLECT_NUM = 3;
+
+
+    private float[] xVelocityCollects = new float[VELOCITY_COLLECT_NUM];
+
+    private float[] yVelocityCollects = new float[VELOCITY_COLLECT_NUM];
+
+
+    private int mVelocityIndex = 0;
+
+    private VelocityTracker mVelocityTracker;
+
     private float mLastX;
     private float mLastY;
 
@@ -59,6 +73,8 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
         setClickable(true);
         setFocusable(true);
         setFocusableInTouchMode(true);
+        //把记录的速度，给reset成0.0f
+        resetVelocityCollection();
     }
 
 
@@ -73,6 +89,10 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
 
     public void setBringViewToFrontListener(BringViewToFrontListener bringViewToFrontListener) {
         mBringViewToFrontListener = bringViewToFrontListener;
+    }
+
+    public void setControlEarListener(ControlEarListener controlEarListener) {
+        mControlEarListener = controlEarListener;
     }
 
     @Override
@@ -109,14 +129,18 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
                 }
                 mLastX = event.getRawX();
                 mLastY = event.getRawY();
-                if (pointerCount == 1) {
-//获得速度追踪对象
-                    VelocityTracker velocity = VelocityTracker.obtain();
+                //测速度
+                if (pointerCount == 1 && mControlEarListener != null) {
+                    //获得速度追踪对象
+                    VelocityTracker velocity = getVelocityTracker();
                     velocity.addMovement(event);
-//计算速度 并获取计算值
-                    velocity.computeCurrentVelocity(100); //设定一个时间间隔值
+                    //计算速度 并获取计算值
+                    velocity.computeCurrentVelocity(1000); //设定一个时间间隔值
                     float xVelocity = velocity.getXVelocity();
                     float yVelocity = velocity.getYVelocity();
+                    xVelocityCollects[mVelocityIndex] = xVelocity;
+                    yVelocityCollects[mVelocityIndex] = yVelocity;
+                    mVelocityIndex = (mVelocityIndex + 1) % VELOCITY_COLLECT_NUM;
                     Log.i("chunyu-veloc", "velocityX:" + xVelocity + "\t velocityY:" + yVelocity);
                 }
 
@@ -152,8 +176,53 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
                 mState = STATE_IDEL;
                 mLastX = 0;
                 mLastY = 0;
+                if (mControlEarListener != null) {
+                    float[] xyVelocity = new float[2];
+                    getVelocity(xyVelocity);
+                    mControlEarListener.onControlEar(xyVelocity);
+                    resetVelocityCollection();
+                }
                 break;
         }
+    }
+
+
+    @Override
+    protected void onDetachedFromWindow() {
+
+        if (mVelocityTracker != null) {
+            mVelocityTracker.recycle();
+            mVelocityTracker = null;
+        }
+        super.onDetachedFromWindow();
+    }
+
+    private VelocityTracker getVelocityTracker() {
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+        return mVelocityTracker;
+    }
+
+    private void resetVelocityCollection() {
+        for (int i = 0; i < VELOCITY_COLLECT_NUM; i++) {
+            xVelocityCollects[i] = 0.0f;
+            yVelocityCollects[i] = 0.0f;
+        }
+    }
+
+    private void getVelocity(float[] xyVelocity) {
+        float xVelocity = 0.0f;
+        float yVelocity = 0.0f;
+        for (int i = 0; i < VELOCITY_COLLECT_NUM; i++) {
+            xVelocity += xVelocityCollects[i];
+            yVelocity += yVelocityCollects[i];
+        }
+
+        xyVelocity[0] = xVelocity / 3;
+        xyVelocity[1] = yVelocity / 3;
+
+        Log.i("chunyu-velocity", "xVelocity:" + xyVelocity[0] + "\t yVelocity:" + xyVelocity[1]);
     }
 
     @Override
@@ -190,6 +259,11 @@ public class ScaleDragView extends android.support.v7.widget.AppCompatImageView 
         public void onScale(float scaleFactor);
 
         public void resetCurrentCircleSize();
+    }
+
+
+    public interface ControlEarListener {
+        public void onControlEar(float[] xyVelocity);
     }
 
 
