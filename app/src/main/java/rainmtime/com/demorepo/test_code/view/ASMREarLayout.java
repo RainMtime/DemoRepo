@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 import javax.annotation.Nonnull;
@@ -32,6 +33,8 @@ public class ASMREarLayout extends FrameLayout {
 
     private static ScaleDragView mUserCover;
 
+    private ASMREarLocationChangeListener mLocationChangeListener;
+
     private ASMREarHandler mEarHandler;
 
 
@@ -43,6 +46,10 @@ public class ASMREarLayout extends FrameLayout {
     public ASMREarLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
+    }
+
+    public void setLocationChangeListener(ASMREarLocationChangeListener locationChangeListener) {
+        mLocationChangeListener = locationChangeListener;
     }
 
     private void init(Context context) {
@@ -90,68 +97,19 @@ public class ASMREarLayout extends FrameLayout {
                 }
             }
         });
+    }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        checkParentLayout();
 
     }
 
-
-    public static class ASMREarHandler extends android.os.Handler {
-
-
-        final ASMREarLayout mEarLayout;
-
-        public ASMREarHandler(@Nonnull ASMREarLayout earLayout) {
-            mEarLayout = earLayout;
-        }
-
-        public static final int MESSAGE_MOVE_EAR = 10086;
-
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == MESSAGE_MOVE_EAR) {
-                float[] xyVelocity = (float[]) msg.obj;
-
-                FrameLayout.LayoutParams layoutParams = (LayoutParams) mEarLayout.getLayoutParams();
-                if (layoutParams != null) {
-
-
-                    int left = (int) (mEarLayout.getLeft() + xyVelocity[0] / VELOCITY_SCALE_TIMES);
-                    int top = (int) (mEarLayout.getTop() + xyVelocity[1] / VELOCITY_SCALE_TIMES);
-
-                    if (mEarLayout.isLeftOutSideFromParent()) {
-                        left = 0;
-                        xyVelocity[0] = -xyVelocity[0];
-                    }
-
-                    if (mEarLayout.isTopOutSideFromParent()) {
-                        top = 0;
-                        xyVelocity[1] = -xyVelocity[1];
-                    }
-
-
-                    if (mEarLayout.isBottomOutSideFromParent()) {
-                        top = mEarLayout.getParentHeight() - mEarLayout.getHeight();
-                        xyVelocity[1] = -xyVelocity[1];
-                    }
-
-                    if (mEarLayout.isRightOutSideFromParent()) {
-                        left = mEarLayout.getParentWidth() - mEarLayout.getWidth();
-                        xyVelocity[0] = -xyVelocity[0];
-                    }
-
-
-                    layoutParams.leftMargin = left;
-                    layoutParams.topMargin = top;
-                    mEarLayout.setLayoutParams(layoutParams);
-
-                    Message message = Message.obtain();
-                    message.what = MESSAGE_MOVE_EAR;
-                    message.obj = xyVelocity;
-
-                    sendMessageDelayed(message, 16);
-                }
-
-            }
+    private void checkParentLayout() {
+        ViewParent viewParent = getParent();
+        if (!(viewParent instanceof FrameLayout)) {
+            throw new IllegalStateException("ASMREarLayout parent is not FrameLayout");
         }
     }
 
@@ -211,6 +169,80 @@ public class ASMREarLayout extends FrameLayout {
             return parentView.getHeight();
         }
         return 0;
+    }
+
+    public void onChangeLocation() {
+        if (mLocationChangeListener != null) {
+            int[] xy = new int[2];
+            getLocationOnScreen(xy);
+            xy[0] += getWidth() / 2;
+            xy[1] += getHeight() / 2;
+            mLocationChangeListener.onChangeLocation(xy);
+        }
+    }
+
+    public static class ASMREarHandler extends android.os.Handler {
+
+
+        final ASMREarLayout mEarLayout;
+
+        public ASMREarHandler(@Nonnull ASMREarLayout earLayout) {
+            mEarLayout = earLayout;
+        }
+
+        public static final int MESSAGE_MOVE_EAR = 10086;
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == MESSAGE_MOVE_EAR) {
+                float[] xyVelocity = (float[]) msg.obj;
+
+                FrameLayout.LayoutParams layoutParams = (LayoutParams) mEarLayout.getLayoutParams();
+                if (layoutParams != null) {
+                    int left = (int) (mEarLayout.getLeft() + xyVelocity[0] / VELOCITY_SCALE_TIMES);
+                    int top = (int) (mEarLayout.getTop() + xyVelocity[1] / VELOCITY_SCALE_TIMES);
+
+                    if (mEarLayout.isLeftOutSideFromParent()) {
+                        left = 0;
+                        xyVelocity[0] = -xyVelocity[0];
+                    }
+
+                    if (mEarLayout.isTopOutSideFromParent()) {
+                        top = 0;
+                        xyVelocity[1] = -xyVelocity[1];
+                    }
+
+
+                    if (mEarLayout.isBottomOutSideFromParent()) {
+                        top = mEarLayout.getParentHeight() - mEarLayout.getHeight();
+                        xyVelocity[1] = -xyVelocity[1];
+                    }
+
+                    if (mEarLayout.isRightOutSideFromParent()) {
+                        left = mEarLayout.getParentWidth() - mEarLayout.getWidth();
+                        xyVelocity[0] = -xyVelocity[0];
+                    }
+
+
+                    layoutParams.leftMargin = left;
+                    layoutParams.topMargin = top;
+                    mEarLayout.setLayoutParams(layoutParams);
+
+                    mEarLayout.onChangeLocation();
+
+                    Message message = Message.obtain();
+                    message.what = MESSAGE_MOVE_EAR;
+                    message.obj = xyVelocity;
+
+                    sendMessageDelayed(message, 16);
+                }
+
+            }
+        }
+    }
+
+    public interface ASMREarLocationChangeListener {
+        public void onChangeLocation(int[] centerXY);
     }
 
 }

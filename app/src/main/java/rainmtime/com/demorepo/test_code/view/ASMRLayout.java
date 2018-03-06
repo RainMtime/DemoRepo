@@ -44,8 +44,14 @@ public class ASMRLayout extends FrameLayout {
         final ASMRSourceLayout source2 = findViewById(R.id.asmr_source2);
         final ASMRSourceLayout source3 = findViewById(R.id.asmr_source3);
 
-
         final ASMREarLayout earLayout = findViewById(R.id.asmr_ear_layout);
+
+        earLayout.setLocationChangeListener(new ASMREarLayout.ASMREarLocationChangeListener() {
+            @Override
+            public void onChangeLocation(int[] centerXY) {
+
+            }
+        });
 
         earLayout.setOnClickListener(new OnClickListener() {
             @Override

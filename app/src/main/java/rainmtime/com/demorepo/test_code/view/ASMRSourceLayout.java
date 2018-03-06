@@ -56,6 +56,58 @@ public class ASMRSourceLayout extends FrameLayout {
         init(context);
     }
 
+
+    public void onEarLocationChange(int[] centerXY) {
+        int[] xy = new int[2];
+        getLocationOnScreen(xy);
+
+        xy[0] += getWidth();
+        xy[1] += getHeight();
+
+        double distance = Math.sqrt(Math.pow(centerXY[0] - xy[0], 2) + Math.pow(centerXY[1] - xy[1], 2));
+
+        int dpDistance = (int) (distance / DisplayUtils.getDensity());
+
+        float alpha = computeBgCircleAlpha(dpDistance);
+
+        float size = computeBgCircleSize(dpDistance);
+    }
+
+    private void changeBackgroundSizeAndAlpha(int distance) {
+        float alpha = computeBgCircleAlpha(distance);
+
+    }
+
+    /**
+     * @param distance 音源距离耳朵的距离（y = 0.8-0.01x)
+     * @return 返回背景圆圈应有的透明度[0.4, 0.8]
+     */
+    private float computeBgCircleAlpha(int distance) {
+        if (distance >= 200) {
+            distance = 200;
+        }
+        if (distance <= 0) {
+            distance = 0;
+        }
+        return 0.8f - distance / 500.0f;
+    }
+
+    /**
+     * @param distance 音源距离耳朵的距离（y = 300 - 0.725x)
+     * @return
+     */
+    private int computeBgCircleSize(int distance) {
+
+        if (distance >= 200) {
+            distance = 200;
+        }
+
+        if (distance <= 0) {
+            distance = 0;
+        }
+        return (int) (300 - 0.475 * distance);
+    }
+
     private void init(Context context) {
         final View rootView = LayoutInflater.from(context).inflate(R.layout.asmr_music_source_layout, this, true);
         mHalo = rootView.findViewById(R.id.asmr_source_halo);
