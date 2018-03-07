@@ -5,8 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.widget.FrameLayout;
+
+import java.util.ArrayList;
 
 import rainmtime.com.demorepo.R;
 
@@ -18,6 +19,12 @@ import rainmtime.com.demorepo.R;
 public class ASMRLayout extends FrameLayout {
 
     private static final String TAG = "ASMRLayout";
+
+    private static final int ASMR_SOURCE_NUM = 5;
+    
+    private ArrayList<ASMRSourceLayout> mSourceArray = new ArrayList<>(ASMR_SOURCE_NUM);
+    private ASMREarLayout mEarLayout;
+
 
     public ASMRLayout(@NonNull Context context) {
         super(context);
@@ -38,38 +45,36 @@ public class ASMRLayout extends FrameLayout {
 
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-    }
-
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        final ASMRSourceLayout source1 = findViewById(R.id.asmr_source1);
-        final ASMRSourceLayout source2 = findViewById(R.id.asmr_source2);
-        final ASMRSourceLayout source3 = findViewById(R.id.asmr_source3);
+        mSourceArray.add((ASMRSourceLayout) findViewById(R.id.asmr_source1));
+        mSourceArray.add((ASMRSourceLayout) findViewById(R.id.asmr_source2));
+        mSourceArray.add((ASMRSourceLayout) findViewById(R.id.asmr_source3));
 
-        final ASMREarLayout earLayout = findViewById(R.id.asmr_ear_layout);
+        mEarLayout = findViewById(R.id.asmr_ear_layout);
 
-        earLayout.setLocationChangeListener(new ASMREarLayout.ASMREarLocationChangeListener() {
+        mEarLayout.setLocationChangeListener(new ASMREarLayout.ASMREarLocationChangeListener() {
             @Override
-            public void onChangeLocation(int[] centerXY) {
+            public void onChangeLocation(int[] centerXYFromParent) {
 
-                Log.i(TAG, "centerX:" + centerXY[0] + "centerY:" + centerXY[1]);
-                source1.onEarLocationChange(centerXY);
-                source2.onEarLocationChange(centerXY);
-                source3.onEarLocationChange(centerXY);
-            }
-        });
+                int[] centerXYFromScreen = new int[2];
 
-        earLayout.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("chunyu-onclick", "onClick earLayout");
+                ASMRLayout.this.getLocationOnScreen(centerXYFromScreen);
+
+                centerXYFromScreen[0] += centerXYFromParent[0];
+                centerXYFromScreen[1] += centerXYFromParent[1];
+                Log.i(TAG, "centerX:" + centerXYFromScreen[0] + "centerY:" + centerXYFromScreen[1]);
+
+                for (ASMRSourceLayout item : mSourceArray) {
+                    if (item != null) {
+                        item.onEarLocationChange(centerXYFromScreen);
+                    }
+                }
             }
         });
     }
+
 
 }

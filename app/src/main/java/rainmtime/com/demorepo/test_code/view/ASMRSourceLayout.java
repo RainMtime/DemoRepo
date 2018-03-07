@@ -23,8 +23,7 @@ public class ASMRSourceLayout extends FrameLayout {
 
 
     private static final String TAG = "ASMRSourceLayout";
-
-
+    
     private static final int MIN_WIDTH = DisplayUtils.dip2px(80);
 
     private static final int MAX_WIDTH = DisplayUtils.dip2px(150);
@@ -115,6 +114,14 @@ public class ASMRSourceLayout extends FrameLayout {
             distance = 0;
         }
         return (int) (300 - 0.475 * distance);
+    }
+
+    public void hideHalo() {
+        mHalo.setVisibility(View.VISIBLE);
+    }
+
+    public void showHalo() {
+        mHalo.setVisibility(View.INVISIBLE);
     }
 
     private void init(Context context) {
