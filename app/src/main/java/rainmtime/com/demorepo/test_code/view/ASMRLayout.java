@@ -21,9 +21,10 @@ public class ASMRLayout extends FrameLayout {
     private static final String TAG = "ASMRLayout";
 
     private static final int ASMR_SOURCE_NUM = 5;
-    
+
     private ArrayList<ASMRSourceLayout> mSourceArray = new ArrayList<>(ASMR_SOURCE_NUM);
     private ASMREarLayout mEarLayout;
+    private ASMRFollowLightView mASMRFollowLightView;
 
 
     public ASMRLayout(@NonNull Context context) {
@@ -55,6 +56,8 @@ public class ASMRLayout extends FrameLayout {
 
         mEarLayout = findViewById(R.id.asmr_ear_layout);
 
+        mASMRFollowLightView = findViewById(R.id.asmr_follow_light);
+
         mEarLayout.setLocationChangeListener(new ASMREarLayout.ASMREarLocationChangeListener() {
             @Override
             public void onChangeLocation(int[] centerXYFromParent) {
@@ -72,6 +75,9 @@ public class ASMRLayout extends FrameLayout {
                         item.onEarLocationChange(centerXYFromScreen);
                     }
                 }
+
+                //追光灯效果
+                mASMRFollowLightView.moveFollowLight(centerXYFromParent[0], centerXYFromParent[1]);
             }
         });
     }

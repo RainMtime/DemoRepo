@@ -41,4 +41,10 @@
         android:layout_width="55dp"
         android:layout_height="55dp" />
 
+
+    <rainmtime.com.demorepo.test_code.view.ASMRFollowLightView
+        android:id="@+id/asmr_follow_light"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </rainmtime.com.demorepo.test_code.view.ASMRLayout>
