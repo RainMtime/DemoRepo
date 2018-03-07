@@ -35,7 +35,14 @@ public class ASMRLayout extends FrameLayout {
     }
 
     private void init(Context context) {
+
     }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
 
     @Override
     protected void onFinishInflate() {
@@ -50,6 +57,10 @@ public class ASMRLayout extends FrameLayout {
             @Override
             public void onChangeLocation(int[] centerXY) {
 
+                Log.i(TAG, "centerX:" + centerXY[0] + "centerY:" + centerXY[1]);
+                source1.onEarLocationChange(centerXY);
+                source2.onEarLocationChange(centerXY);
+                source3.onEarLocationChange(centerXY);
             }
         });
 

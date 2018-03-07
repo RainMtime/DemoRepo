@@ -61,20 +61,29 @@ public class ASMRSourceLayout extends FrameLayout {
         int[] xy = new int[2];
         getLocationOnScreen(xy);
 
-        xy[0] += getWidth();
-        xy[1] += getHeight();
+        xy[0] += getWidth() / 2;
+        xy[1] += getHeight() / 2;
 
         double distance = Math.sqrt(Math.pow(centerXY[0] - xy[0], 2) + Math.pow(centerXY[1] - xy[1], 2));
 
         int dpDistance = (int) (distance / DisplayUtils.getDensity());
 
+        changeBackgroundSizeAndAlpha(dpDistance);
+
+    }
+
+    private void changeBackgroundSizeAndAlpha(int dpDistance) {
         float alpha = computeBgCircleAlpha(dpDistance);
 
         float size = computeBgCircleSize(dpDistance);
-    }
 
-    private void changeBackgroundSizeAndAlpha(int distance) {
-        float alpha = computeBgCircleAlpha(distance);
+        mHalo.setAlpha(alpha);
+
+        ViewGroup.LayoutParams layoutParams = mHalo.getLayoutParams();
+
+        layoutParams.width = DisplayUtils.dip2px(size);
+        layoutParams.height = DisplayUtils.dip2px(size);
+        mHalo.setLayoutParams(layoutParams);
 
     }
 
@@ -93,7 +102,7 @@ public class ASMRSourceLayout extends FrameLayout {
     }
 
     /**
-     * @param distance 音源距离耳朵的距离（y = 300 - 0.725x)
+     * @param distance 音源距离耳朵的距离（y = 300 - 0.475x)
      * @return
      */
     private int computeBgCircleSize(int distance) {

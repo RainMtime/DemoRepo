@@ -181,6 +181,13 @@ public class ASMREarLayout extends FrameLayout {
         }
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        mEarHandler.removeMessages(ASMREarHandler.MESSAGE_MOVE_EAR);
+
+        super.onDetachedFromWindow();
+    }
+
     public static class ASMREarHandler extends android.os.Handler {
 
 
