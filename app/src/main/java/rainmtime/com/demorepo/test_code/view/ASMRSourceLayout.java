@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import rainmtime.com.demorepo.R;
-import rainmtime.com.demorepo.utils.DisplayUtils;
+import rainmtime.com.demorepo.utils.DisplayMetricsUtil;
 
 /**
  * Created by chunyu on 2018/3/2 下午2:42.
@@ -23,10 +23,10 @@ public class ASMRSourceLayout extends FrameLayout {
 
 
     private static final String TAG = "ASMRSourceLayout";
-    
-    private static final int MIN_WIDTH = DisplayUtils.dip2px(80);
 
-    private static final int MAX_WIDTH = DisplayUtils.dip2px(150);
+    private static final int MIN_WIDTH = DisplayMetricsUtil.dip2px(80);
+
+    private static final int MAX_WIDTH = DisplayMetricsUtil.dip2px(150);
 
     //音频光晕背景
     private ImageView mHalo;
@@ -65,7 +65,7 @@ public class ASMRSourceLayout extends FrameLayout {
 
         double distance = Math.sqrt(Math.pow(centerXY[0] - xy[0], 2) + Math.pow(centerXY[1] - xy[1], 2));
 
-        int dpDistance = (int) (distance / DisplayUtils.getDensity());
+        int dpDistance = (int) (distance / DisplayMetricsUtil.getDensity());
 
         changeBackgroundSizeAndAlpha(dpDistance);
 
@@ -80,8 +80,8 @@ public class ASMRSourceLayout extends FrameLayout {
 
         ViewGroup.LayoutParams layoutParams = mHalo.getLayoutParams();
 
-        layoutParams.width = DisplayUtils.dip2px(size);
-        layoutParams.height = DisplayUtils.dip2px(size);
+        layoutParams.width = DisplayMetricsUtil.dip2px(size);
+        layoutParams.height = DisplayMetricsUtil.dip2px(size);
         mHalo.setLayoutParams(layoutParams);
 
     }

@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import rainmtime.com.demorepo.utils.DisplayUtils;
+import rainmtime.com.demorepo.utils.DisplayMetricsUtil;
 
 /**
  * Created by chunyu on 2018/3/7 下午3:51.
@@ -27,7 +27,7 @@ public class ASMRFollowLightView extends View {
     private float xCenter = 0;
     private float yCenter = 0;
 
-    private static final int RADIUS = DisplayUtils.dip2px(250);
+    private static final int RADIUS = DisplayMetricsUtil.dip2px(250);
 
 
     private Matrix mMatrix;
@@ -74,5 +74,5 @@ public class ASMRFollowLightView extends View {
         yCenter = y;
         invalidate();
     }
-    
+
 }

@@ -7,7 +7,7 @@ import rainmtime.com.demorepo.global.GlobalContext;
  * Email: 746431278@qq.com
  */
 
-public final class DisplayUtils {
+public final class DisplayMetricsUtil {
     private static float sDensity = 0f;// 根据GOOGLE IO文档中提到的，对density作缓存能起来省电的作用
 
     public static float getDensity() {
