@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -23,10 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
-import rainmtime.com.demorepo.orm.sqlitedemo.SqliteUtils;
-import rainmtime.com.demorepo.test_code.viewdraghelper.ViewDragHelperActivity;
+import rainmtime.com.demorepo.nestedRecyclerView.NestedActivity;
 import rainmtime.com.demorepo.utils.ResUtils;
-import rainmtime.com.demorepo.utils.StorageUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,13 +69,13 @@ public class MainActivity extends AppCompatActivity
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                //测试存储文件的目录
-                StorageUtils.printDir();
-
-                //测试数据库存储
-                SqliteUtils.sqliteTest();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//                //测试存储文件的目录
+//                StorageUtils.printDir();
+//
+//                //测试数据库存储
+//                SqliteUtils.sqliteTest();
             }
         });
 
@@ -86,8 +83,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MainActivity.this, ViewDragHelperActivity.class);
+                //测试嵌套滚动行为
+                Intent intent = new Intent(MainActivity.this, NestedActivity.class);
                 startActivity(intent);
+
+                //测试跳转到拖动的Activity
+//                Intent intent = new Intent(MainActivity.this, ViewDragHelperActivity.class);
+//                startActivity(intent);
                 // litePal 测试代码片段
 //                LogUtil.level = 1;
 //                Album album = new Album();
@@ -162,6 +164,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
