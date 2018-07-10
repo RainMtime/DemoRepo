@@ -62,17 +62,30 @@ data class Person(val name: String, val age: Int) {
     }
 }
 
-data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int) {
-    operator fun compareTo(bDate: MyDate): Int {
-        if (bDate.year != year) {
-            return bDate.year - year
-        } else if (bDate.month != month) {
-            return bDate.month - month
-        } else if (bDate.month != month) {
-            return bDate.dayOfMonth - dayOfMonth;
-        }
-        return -1
+data class MyDate(val year: Int, val month: Int, val dayOfMonth: Int):Comparable<MyDate> {
 
+    override operator fun compareTo(bDate: MyDate): Int {
+        return when {
+            bDate.year != year -> bDate.year - year
+            bDate.month != month -> bDate.month - month
+            bDate.dayOfMonth != dayOfMonth -> bDate.dayOfMonth - dayOfMonth
+            else -> -1
+        }
     }
+
 }
 
+fun test2(){
+    val numbers = listOf(1,2);
+}
+
+class LazyProperty(val initializer:() ->Int){
+    var value:Int? = null
+    val lazy:Int
+         get() {
+             if (value == null){
+                 value = initializer()
+             }
+             return  value!!
+         }
+}

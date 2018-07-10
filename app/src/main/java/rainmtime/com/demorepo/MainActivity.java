@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
-import rainmtime.com.demorepo.nestedRecyclerView.NestedActivity;
+import rainmtime.com.demorepo.test_code.TestActivity;
 import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -69,13 +69,8 @@ public class MainActivity extends AppCompatActivity
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//                //测试存储文件的目录
-//                StorageUtils.printDir();
-//
-//                //测试数据库存储
-//                SqliteUtils.sqliteTest();
+                Intent intent = new Intent(MainActivity.this,TestActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -84,26 +79,12 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 //测试嵌套滚动行为
-                Intent intent = new Intent(MainActivity.this, NestedActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, NestedActivity.class);
+//                startActivity(intent);
 
                 //测试跳转到拖动的Activity
 //                Intent intent = new Intent(MainActivity.this, ViewDragHelperActivity.class);
 //                startActivity(intent);
-                // litePal 测试代码片段
-//                LogUtil.level = 1;
-//                Album album = new Album();
-//                album.setCover("https://goo.gl/images/K5N4HH");
-//                album.setName("你好,旧时光2");
-//                album.setPrice(19.99f);
-//                album.save();
-//
-//                Song song1 = new Song();
-//                song1.setAlbum(album);
-//                song1.setDuration(1000);
-//                song1.setName("时间遐想3");
-//                song1.save();
-//                Song song = DataSupport.find(Song.class, 2);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
