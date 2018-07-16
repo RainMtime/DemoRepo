@@ -1,4 +1,4 @@
-package rainmtime.com.demorepo.nestedRecyclerView;
+package rainmtime.com.demorepo.test_code.nestedRecyclerView;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

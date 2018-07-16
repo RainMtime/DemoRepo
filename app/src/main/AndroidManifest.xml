@@ -28,7 +28,7 @@
 
         <activity android:name=".test_code.asmr_test.viewdraghelper.ViewDragHelperActivity" />
 
-        <activity android:name=".nestedRecyclerView.NestedActivity" />
+        <activity android:name=".test_code.nestedRecyclerView.NestedActivity" />
         <activity android:name=".test_code.TestActivity"/>
     </application>
 
