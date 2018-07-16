@@ -3,7 +3,7 @@
     android:layout_width="55dp"
     android:layout_height="55dp">
 
-    <rainmtime.com.demorepo.test_code.view.ScaleDragView
+    <rainmtime.com.demorepo.test_code.asmr_test.view.ScaleDragView
         android:id="@+id/asmr_ear"
         android:src="@drawable/ic_asmr_user"
         android:layout_width="55dp"

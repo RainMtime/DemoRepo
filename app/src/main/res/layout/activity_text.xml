@@ -9,7 +9,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp">
 
-        <rainmtime.com.demorepo.test_code.view.ClipDrawView
+        <rainmtime.com.demorepo.test_code.asmr_test.view.ClipDrawView
 
             android:layout_width="50dp"
             android:layout_height="50dp" />

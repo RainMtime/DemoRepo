@@ -17,7 +17,7 @@
         android:src="@drawable/asmr_light" />
 
 
-    <rainmtime.com.demorepo.test_code.view.ScaleDragView
+    <rainmtime.com.demorepo.test_code.asmr_test.view.ScaleDragView
         android:id="@+id/asmr_source_circle"
         android:layout_centerInParent="true"
         android:src="@drawable/asmr_circle"

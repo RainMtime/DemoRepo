@@ -1,11 +1,11 @@
-package rainmtime.com.demorepo.test_code.viewdraghelper;
+package rainmtime.com.demorepo.test_code.asmr_test.viewdraghelper;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import rainmtime.com.demorepo.R;
-import rainmtime.com.demorepo.test_code.view.ASMREarLayout;
+import rainmtime.com.demorepo.test_code.asmr_test.view.ASMREarLayout;
 import rainmtime.com.demorepo.utils.ThreadUtils;
 
 /**

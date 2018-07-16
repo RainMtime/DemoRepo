@@ -1,4 +1,4 @@
-package rainmtime.com.demorepo.test_code.view;
+package rainmtime.com.demorepo.test_code.asmr_test.view;
 
 import android.content.Context;
 import android.os.Message;
