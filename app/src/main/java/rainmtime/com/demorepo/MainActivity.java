@@ -18,11 +18,17 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
 import rainmtime.com.demorepo.test_code.TestActivity;
+import rainmtime.com.demorepo.test_code.dagger2.ActivityComponent;
+import rainmtime.com.demorepo.test_code.dagger2.ActivityModule;
+import rainmtime.com.demorepo.test_code.dagger2.DaggerActivityComponent;
+import rainmtime.com.demorepo.test_code.dagger2.UserModel;
 import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -51,16 +57,28 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
 
+    @Inject
+    UserModel mUserModel;
 
+    private ActivityComponent mActivityComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-
         initView();
         initPagerAdapterAndTabs();
+
+        //dagger2 代码片段
+
+        dagger2Test();
+    }
+
+
+    private void dagger2Test(){
+         mActivityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule()).build();
+         mActivityComponent.inject(this);
     }
 
 
