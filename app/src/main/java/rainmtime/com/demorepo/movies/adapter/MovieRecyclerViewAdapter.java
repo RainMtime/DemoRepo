@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.Collections;
+
 import rainmtime.com.demorepo.R;
+import rainmtime.com.demorepo.component.view.drag_recyclerview.ItemTouchHelperAdapter;
 import rainmtime.com.demorepo.movies.data.Subject;
 import rainmtime.com.demorepo.movies.viewholder.MovieViewHolder;
 
@@ -13,7 +16,7 @@ import rainmtime.com.demorepo.movies.viewholder.MovieViewHolder;
  * Email: 746431278@qq.com
  */
 
-public class MovieRecyclerViewAdapter extends BaseRecyclerViewAdapter<Subject, MovieViewHolder> {
+public class MovieRecyclerViewAdapter extends BaseRecyclerViewAdapter<Subject, MovieViewHolder> implements ItemTouchHelperAdapter {
 
 
     public MovieRecyclerViewAdapter(Context context) {
@@ -34,5 +37,12 @@ public class MovieRecyclerViewAdapter extends BaseRecyclerViewAdapter<Subject, M
     @Override
     public int getItemViewType(int position) {
         return super.getItemViewType(position);
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPositon) {
+        Collections.swap(mDatas,fromPosition,toPositon);
+        notifyItemMoved(fromPosition,toPositon);
+        return true;
     }
 }

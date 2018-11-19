@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rainmtime.com.demorepo.R;
+import rainmtime.com.demorepo.component.view.drag_recyclerview.ItemTouchHelperCallback;
 import rainmtime.com.demorepo.movies.adapter.MovieRecyclerViewAdapter;
 import rainmtime.com.demorepo.movies.data.MoviesRsp;
 import rainmtime.com.demorepo.movies.network.NetworkService;
@@ -57,8 +59,13 @@ public class MovieFragment extends BaseFragment {
     private void initViewAndAdapter() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
+
         mAdapter = new MovieRecyclerViewAdapter(getContext());
         mRecyclerView.setAdapter(mAdapter);
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(ItemTouchHelperCallback.UP_DOWN,mAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
+
     }
 
 

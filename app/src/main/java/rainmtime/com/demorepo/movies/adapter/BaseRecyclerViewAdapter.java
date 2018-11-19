@@ -17,7 +17,7 @@ import rainmtime.com.demorepo.utils.CommonUtils;
 
 public class BaseRecyclerViewAdapter<T,VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    private ArrayList<T> mDatas = new ArrayList<>();
+    public ArrayList<T> mDatas = new ArrayList<>();
     private Context mContext;
 
     public BaseRecyclerViewAdapter(Context context) {
