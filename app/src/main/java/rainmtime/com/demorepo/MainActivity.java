@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -29,6 +30,9 @@ import rainmtime.com.demorepo.test_code.dagger2.ActivityComponent;
 import rainmtime.com.demorepo.test_code.dagger2.ActivityModule;
 import rainmtime.com.demorepo.test_code.dagger2.DaggerActivityComponent;
 import rainmtime.com.demorepo.test_code.dagger2.UserModel;
+import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
+import rainmtime.com.demorepo.test_code.proxy_test.Sell;
+import rainmtime.com.demorepo.test_code.proxy_test.Vendor;
 import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -70,15 +74,26 @@ public class MainActivity extends AppCompatActivity
         initView();
         initPagerAdapterAndTabs();
 
-        //dagger2 代码片段
 
+        //dagger2 代码片段
         dagger2Test();
+        //动态代理测试代码
+        dynamicProxyTest();
     }
 
 
     private void dagger2Test(){
          mActivityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule()).build();
          mActivityComponent.inject(this);
+    }
+
+    private void dynamicProxyTest(){
+        DynamicProxy inter = new DynamicProxy(new Vendor());
+
+        Sell sell = (Sell) Proxy.newProxyInstance(Sell.class.getClassLoader(),new Class[]{Sell.class},inter);
+
+        sell.ad();
+        sell.sell();
     }
 
 
