@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity
     UserModel mUserModel;
 
     private ActivityComponent mActivityComponent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,15 +83,15 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void dagger2Test(){
-         mActivityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule()).build();
-         mActivityComponent.inject(this);
+    private void dagger2Test() {
+        mActivityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule()).build();
+        mActivityComponent.inject(this);
     }
 
-    private void dynamicProxyTest(){
+    private void dynamicProxyTest() {
         DynamicProxy inter = new DynamicProxy(new Vendor());
 
-        Sell sell = (Sell) Proxy.newProxyInstance(Sell.class.getClassLoader(),new Class[]{Sell.class},inter);
+        Sell sell = (Sell) Proxy.newProxyInstance(Sell.class.getClassLoader(), new Class[]{Sell.class}, inter);
 
         sell.ad();
         sell.sell();
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,TestActivity.class);
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
                 startActivity(intent);
             }
         });
@@ -118,6 +119,9 @@ public class MainActivity extends AppCompatActivity
                 //测试跳转到拖动的Activity
 //                Intent intent = new Intent(MainActivity.this, ViewDragHelperActivity.class);
 //                startActivity(intent);
+
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                startActivity(intent);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

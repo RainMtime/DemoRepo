@@ -1,6 +1,7 @@
 package rainmtime.com.demorepo;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.facebook.stetho.Stetho;
 
@@ -24,6 +25,7 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         LitePal.initialize(this);
 
         Stetho.initialize(

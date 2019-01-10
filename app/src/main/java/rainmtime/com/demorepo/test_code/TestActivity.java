@@ -3,7 +3,10 @@ package rainmtime.com.demorepo.test_code;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rainmtime.com.demorepo.R;
 
 /**
@@ -12,10 +15,23 @@ import rainmtime.com.demorepo.R;
  */
 public class TestActivity extends AppCompatActivity {
 
+    @BindView(R.id.svg_test1)
+    public ImageView mImageView1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_text);
+        ButterKnife.bind(this);
+        //测试案例一： Resources$NotFoundException
+//         testcase();
+
+    }
+
+
+    private void testcase(){
+        mImageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle));
+        mImageView1.setImageResource(R.drawable.ic_check_circle);
     }
 }
