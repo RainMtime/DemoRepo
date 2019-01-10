@@ -55,4 +55,8 @@
     <string name="permissions_tips_content">请先开启存储权限;\n否则，您将无法正常保存图片</string>
     <string name="cancel">取消</string>
     <string name="open">立即开启</string>
+
+
+
+
 </resources>

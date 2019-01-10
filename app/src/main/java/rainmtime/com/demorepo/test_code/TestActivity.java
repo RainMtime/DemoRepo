@@ -2,6 +2,7 @@ package rainmtime.com.demorepo.test_code;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
@@ -17,6 +18,9 @@ public class TestActivity extends AppCompatActivity {
 
     @BindView(R.id.svg_test1)
     public ImageView mImageView1;
+    
+    @BindView(R.id.animate_svg)
+    public ImageView mImageView2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,6 +31,13 @@ public class TestActivity extends AppCompatActivity {
         //测试案例一： Resources$NotFoundException
 //         testcase();
 
+        //测试案例二：
+        showanim();
+
+    }
+
+    private void showanim() {
+        ((AnimatedVectorDrawableCompat) mImageView2.getDrawable()).start();
     }
 
 

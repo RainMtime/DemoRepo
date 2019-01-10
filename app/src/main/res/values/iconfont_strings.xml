@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--祥云-->
+    <string name="icon1">&#xe601;</string>
+    <!--烟花-->
+    <string name="icon2">&#xe602;</string>
+    <!--春-->
+    <string name="icon3">&#xe603;</string>
+    <!--灯笼-->
+    <string name="icon4">&#xe604;</string>
+    <!--花灯-->
+    <string name="icon5">&#xe605;</string>
+    <!--福娃-->
+    <string name="icon6">&#xe606;</string>
+
+    
+</resources>

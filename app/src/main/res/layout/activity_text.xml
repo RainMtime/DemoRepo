@@ -27,10 +27,21 @@
             android:drawableLeft="@drawable/selecotr_for_svg_chinese_colors"/>
 
 
-        <TextView
-            android:layout_width="match_parent"
+        <rainmtime.com.demorepo.component.view.IconFontTextView
+            android:visibility="gone"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:textColor="@color/A1"
+            android:text="@string/icon3"
             />
+
+        <ImageView
+            android:id="@+id/animate_svg"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:srcCompat = "@drawable/animate_svg"/>
 
     </LinearLayout>
 
