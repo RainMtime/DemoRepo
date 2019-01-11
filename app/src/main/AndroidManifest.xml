@@ -30,6 +30,8 @@
 
         <activity android:name=".test_code.nestedRecyclerView.NestedActivity" />
         <activity android:name=".test_code.TestActivity"/>
+
+        <service android:name=".test_code.inentservice.TestIntentService" />
     </application>
 
 </manifest>
