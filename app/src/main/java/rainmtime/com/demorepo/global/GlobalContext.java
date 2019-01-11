@@ -21,6 +21,8 @@ public class GlobalContext {
 
     private static final AtomicReference<GlobalContext> sInstance;
 
+    private AppExecutors mAppExecutors;
+
 
     static {
         sInstance = new AtomicReference<>();
@@ -32,6 +34,7 @@ public class GlobalContext {
 
     public GlobalContext(@NonNull Application application) {
         mApplication = application;
+        mAppExecutors = new AppExecutors();
     }
 
     public static void set(GlobalContext globalContext) {
@@ -58,5 +61,10 @@ public class GlobalContext {
     public Application getApplication() {
         return mApplication;
     }
+
+    public AppExecutors getAppExecutors() {
+        return mAppExecutors;
+    }
+
 
 }
