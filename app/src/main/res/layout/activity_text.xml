@@ -14,8 +14,13 @@
             android:id="@+id/svg_test1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:alpha="0.5"
-            app:srcCompat="@drawable/ic_chinese_colors" />
+            app:srcCompat="@drawable/ic_alpha" />
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_gradient"/>
 
         <TextView
             android:visibility="gone"
