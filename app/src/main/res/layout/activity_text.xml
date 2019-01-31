@@ -14,7 +14,7 @@
             android:id="@+id/svg_test1"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:alpha="0.5"
+            android:tint="@color/A1"
             app:srcCompat="@drawable/ic_chinese_colors" />
 
         <TextView
@@ -37,7 +37,9 @@
             android:text="@string/icon3"
             />
 
+
         <ImageView
+            android:visibility="gone"
             android:id="@+id/animate_svg"
             android:layout_width="300dp"
             android:layout_height="300dp"
