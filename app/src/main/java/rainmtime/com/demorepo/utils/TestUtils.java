@@ -3,6 +3,9 @@ package rainmtime.com.demorepo.utils;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -301,7 +304,218 @@ public final class TestUtils {
         return last;
     }
 
-    
+
+    public static int binarysearch(int a[], int start, int end, int value) {
+        if (start < end) {
+            return -1;
+        }
+        int midIndex = (start + end) / 2;
+        int midValue = a[(start + end) / 2];
+
+        if (midValue == value) {
+            return midIndex;
+        } else if (midValue > value) {
+            return binarysearch(a, start, midIndex, value);
+        } else {
+            return binarysearch(a, midIndex + 1, end, value);
+        }
+    }
+
+    /**
+     * 快速排序
+     */
+    public static void qsort(int[] a, int left, int right) {
+
+        int pivot = partIndex(a, left, right);
+        qsort(a, left, pivot - 1);
+        qsort(a, pivot + 1, right);
+    }
+
+    public static int partIndex(int[] a, int left, int right) {
+
+        int pivotValue = a[left];
+        while (left < right) {
+            while (pivotValue <= a[right] && left < right) {
+                right--;
+            }
+            if (left < right) {
+                a[left] = a[right];
+                ++left;
+            }
+
+            while (pivotValue >= a[left] && left < right) {
+                left++;
+            }
+
+            if (left < right) {
+                a[right] = a[left];
+                right--;
+            }
+        }
+        a[left] = pivotValue;
+
+        return left;
+    }
+
+
+    public static class ConsumerAndProducer {
+        private static String Lock = "lock";
+
+        private final static int capacity = 10;
+        private int count = 0;
+
+
+        public class ConSumer implements Runnable {
+            @Override
+            public void run() {
+                for (int i = 0; i <= 5; i++) {
+
+                    //sleep(3000)
+
+                    synchronized (Lock) {
+                        if (count <= 10) {
+                            count++;
+                        } else {
+                            try {
+                                Lock.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
+        public class Producer implements Runnable {
+            @Override
+            public void run() {
+                //sleep(3000)
+
+                synchronized (Lock) {
+                    if (count <= 0) {
+                        count--;
+                    } else {
+                        try {
+                            Lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public static class SingleInstance {
+
+        private static final SingleInstance mInstance = new SingleInstance();
+
+        private SingleInstance() {
+        }
+
+//        public synchronized SingleInstance getInstance() {
+//            if (mInstance == null) {
+//                mInstance = new SingleInstance();
+//            }
+//            return mInstance;
+//        }
+
+
+        public static SingleInstance getmInstance() {
+            return mInstance;
+        }
+    }
+
+
+    public static class Server {
+
+        public static void main() {
+            try {
+                ServerSocket serverSocket = new ServerSocket(10086);
+                Socket socket = serverSocket.accept();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public Server() {
+
+
+        }
+    }
+
+    public static class Hanlder implements Runnable {
+
+        public Socket socket;
+
+        public Hanlder(Socket socket) {
+
+            this.socket = socket;
+        }
+
+        @Override
+        public void run() {
+            try {
+                socket.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static class sumOfNumClass {
+        int k = 0;
+        private static final int N = 20;
+        int[] res = new int[N];
+
+
+        public void sumOfNum(int[] a, int n, int sum) {
+
+            if (n <= 0 && sum <= 0) {
+                return;
+            }
+
+            if (k >= 0) {
+                if (sum == a[n - 1]) {
+                    for (int i = 0; i < k; i++) {
+                        //print a[i]
+                    }
+                    //print sum
+                }
+            }
+
+            res[k++] = a[n - 1];
+            sumOfNum(a, n - 1, sum - a[n - 1]);
+            k--;
+            sumOfNum(a, n - 1, sum);
+
+        }
+
+
+    }
+
+    /**
+     * @param a 待处理数组
+     * @param n 数组数目
+     * @return
+     */
+    public static int maxSum(int[] a, int n) {
+        int currentSum = 0;
+        int maxSum = a[0];
+
+        for (int i = 0; i < n; i++) {
+            currentSum = (a[i] > a[i] + currentSum) ? a[i] : a[i] + currentSum;
+            maxSum = maxSum > currentSum ? maxSum : currentSum;
+        }
+
+        return maxSum;
+    }
+
 
 }
 

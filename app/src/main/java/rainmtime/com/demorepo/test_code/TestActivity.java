@@ -17,7 +17,7 @@ public class TestActivity extends AppCompatActivity {
 
     @BindView(R.id.svg_test1)
     public ImageView mImageView1;
-    
+
     @BindView(R.id.animate_svg)
     public ImageView mImageView2;
 
@@ -27,7 +27,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_text);
         ButterKnife.bind(this);
         //测试案例一： Resources$NotFoundException
-         testcase();
+//         testcase();
 //        getResources().getDrawable(R.drawable.ic_check_circle);
 
 //        //测试案例二：
@@ -39,8 +39,10 @@ public class TestActivity extends AppCompatActivity {
 //    }
 
 
-    private void testcase(){
-//        mImageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle));
-//        mImageView1.setImageResource(R.drawable.ic_check_circle);
-    }
+//    private void testcase()  {
+////        mImageView1.setImageDrawable(getResources().getDrawable(R.drawable.ic_check_circle));
+////        mImageView1.setImageResource(R.drawable.ic_check_circle);
+//        Class cls = Person.class;
+//    }
+
 }

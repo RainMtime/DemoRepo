@@ -17,7 +17,6 @@ import rainmtime.com.demorepo.component.view.drag_recyclerview.ItemTouchHelperCa
 import rainmtime.com.demorepo.movies.adapter.MovieRecyclerViewAdapter;
 import rainmtime.com.demorepo.movies.data.MoviesRsp;
 import rainmtime.com.demorepo.movies.network.NetworkService;
-import rainmtime.com.demorepo.utils.CommonUtils;
 import rainmtime.com.demorepo.utils.ThreadUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,15 +74,15 @@ public class MovieFragment extends BaseFragment {
         call.enqueue(new Callback<MoviesRsp>() {
             @Override
             public void onResponse(Call<MoviesRsp> call, Response<MoviesRsp> response) {
-                int resultCode = response.code();
-                MoviesRsp moviesRsp = response.body();
-
-                Log.i(TAG, "onResponse:" + resultCode
-                        + "\n" + moviesRsp.getTitle());
-
-                if (!CommonUtils.isCollectionEmpty(moviesRsp.getSubjects())) {
-                    mAdapter.setData(moviesRsp.getSubjects());
-                }
+//                int resultCode = response.code();
+//                MoviesRsp moviesRsp = response.body();
+//
+////                Log.i(TAG, "onResponse:" + resultCode
+////                        + "\n" + moviesRsp.getTitle());
+//
+//                if (!CommonUtils.isCollectionEmpty(moviesRsp.getSubjects())) {
+//                    mAdapter.setData(moviesRsp.getSubjects());
+//                }
             }
 
             @Override
