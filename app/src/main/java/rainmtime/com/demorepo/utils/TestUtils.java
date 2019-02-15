@@ -185,8 +185,9 @@ public final class TestUtils {
         int end2 = end;
         int k = start;
         mergeSort(arr, res, start1, end1);
+        mergeSort(arr, res, start2, end2);
         while ((start1 <= end1) && (start2 <= end2)) {
-            res[k++] = arr[start1] > arr[start2] ? res[start1++] : res[start2++];
+            res[k++] = arr[start1] < arr[start2] ? arr[start1++] : arr[start2++];
         }
         while (start1 <= end1) {
             res[k++] = arr[start1++];
