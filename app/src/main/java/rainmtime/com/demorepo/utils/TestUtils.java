@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -515,6 +517,254 @@ public final class TestUtils {
         }
 
         return maxSum;
+    }
+
+    //冒泡
+    public static void maoPaoSort(int[] a) {
+        if (a == null || a.length <= 0) {
+            return;
+        }
+
+
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length - i - 1; j++) {
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+
+    }
+
+    //计数排序
+    public static void countSort(int[] a) {
+        if (a == null || a.length <= 0) {
+            return;
+        }
+
+        int count = 0;
+        for (int i = 0; i < a.length; i++) {
+            count = 0;
+
+            for (int j = 0; j < a.length; j++) {
+                if (a[i] < a[j]) {
+                    count++;
+                }
+            }
+            int temp = a[count];
+            a[count] = a[i];
+            a[i] = temp;
+        }
+    }
+
+    //计数排序
+    public static int[] mergeSort(int[] a, int[] b) {
+
+        if (a == null || a.length <= 0) {
+            return b;
+        }
+
+        if (b == null || b.length <= 0) {
+            return a;
+        }
+        int aIndex = 0;
+        int bIndex = 0;
+        int[] result = new int[a.length + b.length];
+
+        int realIndex = 0;
+        while (aIndex < a.length && bIndex < b.length) {
+            result[realIndex++] = a[aIndex] < b[bIndex] ? a[aIndex++] : b[bIndex++];
+        }
+
+        if (aIndex < a.length) {
+            while (bIndex < b.length) {
+                result[realIndex++] = b[bIndex++];
+            }
+        }
+
+        if (bIndex < b.length) {
+            while (aIndex < a.length) {
+                result[realIndex++] = a[aIndex++];
+            }
+        }
+        return result;
+    }
+    //快速排序
+
+    public static void kuaisuSort(int[] a, int left, int right) {
+
+        int pivot = pivotIndex(a, left, right);
+
+        if (pivot + 1 < right) {
+            kuaisuSort(a, pivot + 1, right);
+        }
+
+        if (left < pivot - 1) {
+            kuaisuSort(a, left, pivot - 1);
+        }
+
+
+    }
+
+    public static int pivotIndex(@NonNull int[] a, int left, int right) {
+
+        int value = a[left];
+
+        while (left < right) {
+
+            while (value <= a[right] && left <= right) {
+                right--;
+            }
+
+            if (left < right) {
+                a[left] = a[right];
+                left++;
+            }
+
+            while (value >= a[left] && left < right) {
+                left++;
+            }
+
+            if (left < right) {
+                a[right] = a[left];
+                right--;
+            }
+        }
+        a[left] = value;
+        return left;
+
+    }
+
+    public static class Node {
+
+        Node next;
+        int value;
+    }
+
+    public static class Node2 {
+        Node2 front;
+        Node2 next;
+        int value;
+    }
+
+    public static Node reverseLinedList(Node node) {
+        if (node == null && node.next == null) {
+            return node;
+        }
+
+        Node firstNode = node;
+        Node secondNode = node.next;
+
+        while (secondNode != null) {
+            Node temp = secondNode.next;
+            secondNode.next = firstNode;
+            firstNode = secondNode;
+            secondNode = temp;
+        }
+        return firstNode;
+    }
+
+    public static Node2 reverseLinedList(Node2 node2) {
+        if (node2 == null && node2.next == null) {
+            return node2;
+        }
+
+        Node2 firstNode = node2;
+
+        while (firstNode != null) {
+            if (firstNode.next == null) {
+                break;
+            }
+        }
+
+        Node2 frontNode = firstNode;
+
+        while (frontNode != null) {
+            Node2 temp = frontNode.front;
+            frontNode.front = frontNode.next;
+            frontNode.next = temp;
+
+            frontNode = temp;
+        }
+        return firstNode;
+    }
+
+
+    public static boolean isHasCircle(Node node) {
+
+        Node slow = node;
+        Node fast = node;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public TreeNode mergeTree(TreeNode tree1, TreeNode tree2) {
+
+        if (tree1 == null && tree2 == null) {
+            return null;
+        }
+
+        if (tree1 == null) {
+            return tree2;
+        }
+
+        if (tree2 == null) {
+            return tree1;
+        }
+
+        TreeNode result = new TreeNode(tree1.value + tree2.value);
+        result.left = mergeTree(tree1.left, tree2.left);
+
+        result.right = mergeTree(tree1.right, tree2.right);
+        return result;
+    }
+
+
+    public int getHeight(TreeNode treeNode) {
+        int height = 0;
+        if (treeNode == null) {
+            return height;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        queue.add(treeNode);
+        int currentNum = 1;
+
+        while (!queue.isEmpty()) {
+
+            int childNum = 0;
+            while (currentNum > 0) {
+                TreeNode node = queue.peek();
+
+                if (node.left != null) {
+                    queue.add(node.left);
+                    childNum++;
+
+                }
+
+                if (node.right != null) {
+                    queue.add(node.right);
+                    childNum++;
+                }
+            }
+            currentNum = childNum;
+            height++;
+
+        }
+        return height;
+
     }
 
 

@@ -20,4 +20,5 @@ public class TestIntentService extends IntentService {
 
          //广播，EventCenter 告知外界
     }
+
 }
