@@ -559,7 +559,7 @@ public final class TestUtils {
         }
     }
 
-    //计数排序
+
     public static int[] mergeSort(int[] a, int[] b) {
 
         if (a == null || a.length <= 0) {
@@ -767,6 +767,70 @@ public final class TestUtils {
 
     }
 
+    public int getMax(int[] a) {
+
+        int currentSum = 0;
+        int maxSum = 0;
+
+        for (int i = 0; i < a.length; i++) {
+
+            currentSum += a[i];
+            if (maxSum < currentSum) {
+                maxSum = currentSum;
+            }
+
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
+        }
+        return maxSum;
+    }
+
+    public int feibo(int n) {
+
+        if (n == 1 || n == 2) {
+            return 1;
+        }
+        return feibo(n - 1) + feibo(n - 2);
+    }
+
+    public int feibo1(int n) {
+
+        if (n == 1 || n == 2) {
+            return 1;
+        }
+        int f1 = 1;
+        int f2 = 1;
+        int i = 3;
+        int f = 0;
+        while (i <= n) {
+            f = f1 + f2;
+            i++;
+            f1 = f2;
+            f2 = f;
+        }
+        return f;
+    }
+
+    /**
+     * @param a 陈述思想
+     */
+    public void insertSort(int[] a) {
+        for (int i = 1; i < a.length; i++) {
+            int j = i - 1;
+            while (j >= 0 && a[i] < a[j]) {
+                a[j + 1] = a[j];
+                j--;
+            }
+            a[j] = a[i];
+        }
+    }
+
+
+    public void  mergeSort()
+    {
+
+    }
 
 }
 

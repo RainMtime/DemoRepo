@@ -18,7 +18,7 @@ public class TestIntentService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
          //todosomething
 
-         //广播，EventCenter 告知外界
+         //广播，EventCenter
     }
 
 }

@@ -221,5 +221,28 @@ public class BinaryTreeUtils {
         }
     }
 
+    public TreeNode mergeTree(TreeNode a, TreeNode b) {
+        if (a != null && b != null) {
+            a.value += b.value;
+        }
+        TreeNode node = null;
+
+        if (a == null && b != null) {
+            node.value = b.value;
+        }
+
+        if (a != null && b == null) {
+            node.value = a.value;
+        }
+
+
+        if (node != null) {
+            node.left = mergeTree(a.left, b.left);
+            node.right = mergeTree(a.right, b.right);
+        }
+
+        return node;
+    }
+
 
 }
