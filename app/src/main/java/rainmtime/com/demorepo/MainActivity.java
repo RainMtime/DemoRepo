@@ -33,6 +33,7 @@ import rainmtime.com.demorepo.test_code.dagger2.UserModel;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
 import rainmtime.com.demorepo.test_code.proxy_test.Vendor;
+import rainmtime.com.demorepo.test_code.stickerbubbleanimtest.StickerBubbleActivity;
 import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -120,8 +121,12 @@ public class MainActivity extends AppCompatActivity
 //                Intent intent = new Intent(MainActivity.this, ViewDragHelperActivity.class);
 //                startActivity(intent);
 
-                Intent intent = new Intent(MainActivity.this, TestActivity.class);
-                startActivity(intent);
+                //测试矢量图相关逻辑
+//                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+//                startActivity(intent);
+                
+                Intent intent1 = new Intent(MainActivity.this, StickerBubbleActivity.class);
+                startActivity(intent1);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

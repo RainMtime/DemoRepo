@@ -29,9 +29,11 @@
         <activity android:name=".test_code.asmr_test.viewdraghelper.ViewDragHelperActivity" />
 
         <activity android:name=".test_code.nestedRecyclerView.NestedActivity" />
-        <activity android:name=".test_code.TestActivity"/>
+        <activity android:name=".test_code.TestActivity" />
 
         <service android:name=".test_code.inentservice.TestIntentService" />
+
+        <activity android:name=".test_code.stickerbubbleanimtest.StickerBubbleActivity" />
     </application>
 
 </manifest>

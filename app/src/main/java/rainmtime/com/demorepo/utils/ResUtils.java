@@ -1,6 +1,8 @@
 package rainmtime.com.demorepo.utils;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
 import rainmtime.com.demorepo.global.GlobalContext;
@@ -36,5 +38,9 @@ public final class ResUtils {
      */
     public static String getString(@StringRes int id, String str) {
         return String.format(getString(id), str);
+    }
+    
+    public static Drawable getDrawable(@DrawableRes int id){
+        return GlobalContext.get().getResources().getDrawable(id);
     }
 }
