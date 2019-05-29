@@ -30,6 +30,7 @@ import rainmtime.com.demorepo.test_code.dagger2.ActivityComponent;
 import rainmtime.com.demorepo.test_code.dagger2.ActivityModule;
 import rainmtime.com.demorepo.test_code.dagger2.DaggerActivityComponent;
 import rainmtime.com.demorepo.test_code.dagger2.UserModel;
+import rainmtime.com.demorepo.test_code.okhttp.OkHttpActivity;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
 import rainmtime.com.demorepo.test_code.proxy_test.Vendor;
@@ -124,9 +125,14 @@ public class MainActivity extends AppCompatActivity
                 //测试矢量图相关逻辑
 //                Intent intent = new Intent(MainActivity.this, TestActivity.class);
 //                startActivity(intent);
-                
-                Intent intent1 = new Intent(MainActivity.this, StickerBubbleActivity.class);
-                startActivity(intent1);
+
+                //测试相关粘滞canvas 动画
+//                Intent intent1 = new Intent(MainActivity.this, StickerBubbleActivity.class);
+//                startActivity(intent1);
+
+                //测试okhttp相关代码
+                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
+                startActivity(intent);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
