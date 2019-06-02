@@ -1,0 +1,29 @@
+{
+  "name": "DemoRepo",
+  "version": "1.0.0",
+  "description": "一个Demo集合仓库",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RainMtime/DemoRepo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RainMtime/DemoRepo/issues"
+  },
+  "homepage": "https://github.com/RainMtime/DemoRepo#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
