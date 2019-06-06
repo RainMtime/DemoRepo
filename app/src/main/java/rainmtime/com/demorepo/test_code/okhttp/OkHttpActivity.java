@@ -3,6 +3,9 @@ package rainmtime.com.demorepo.test_code.okhttp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -15,6 +18,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import rainmtime.com.demorepo.test_code.okhttp.bean.Person;
 
 /**
  * Created by 人间一小雨 on 2019-05-28 22:17
@@ -27,12 +31,20 @@ public class OkHttpActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new Thread() {
-            @Override
-            public void run() {
-                synchronousGet();
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                synchronousGet();
+//            }
+//        }.start();
+
+        Person person = new Gson().fromJson("{\n" +
+                "    \"name\": \"yushiguang\",\n" +
+                "    \"age\": 18,\n" +
+                "    \"ischangeLevel\": false,\n" +
+                "    \"level\": 23\n" +
+                "}",Person.class);
+        Log.i("chunyu-test",person.toString());
 
     }
 
