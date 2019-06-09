@@ -1,13 +1,17 @@
 package rainmtime.com.demorepo.test_code.okhttp;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -18,6 +22,11 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import okio.BufferedSink;
+import okio.BufferedSource;
+import okio.Okio;
+import okio.Sink;
+import okio.Source;
 import rainmtime.com.demorepo.test_code.okhttp.bean.Person;
 
 /**
@@ -26,6 +35,9 @@ import rainmtime.com.demorepo.test_code.okhttp.bean.Person;
  */
 public class OkHttpActivity extends AppCompatActivity {
     final OkHttpClient client = new OkHttpClient();
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +50,53 @@ public class OkHttpActivity extends AppCompatActivity {
 //            }
 //        }.start();
 
+        try {
+            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, 0);
+            readaFileByLine(new File("/sdcard/chunyu-test/litepal.xml"));
+            writeFile(new File("/sdcard/chunyu-test/env.txt"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void readaFileByLine(File file) throws IOException {
+        try (Source fileSource = Okio.source(file);
+             BufferedSource bufferedSource = Okio.buffer(fileSource)) {
+            while (true) {
+                String line = bufferedSource.readUtf8Line();
+//                String line = bufferedSource.readUtf8LineStrict(); //这个限制了每行文本结束通过"\n \r\n"
+                if (line == null) break;
+
+                System.out.println(line);
+            }
+        }
+    }
+
+    private void writeFile(File file) throws IOException {
+        if (file != null && !file.exists()) {
+            file.createNewFile();
+        }
+        try (Sink fileSink = Okio.sink(file);
+             BufferedSink bufferedSink = Okio.buffer(fileSink)) {
+            for (Map.Entry<String, String> entry : System.getenv().entrySet()) {
+                bufferedSink.writeUtf8(entry.getKey());
+                bufferedSink.writeUtf8("=");
+                bufferedSink.writeUtf8(entry.getValue());
+                bufferedSink.writeUtf8("\n");
+            }
+        }
+    }
+
+
+    private void testJsonParser() {
         Person person = new Gson().fromJson("{\n" +
                 "    \"name\": \"yushiguang\",\n" +
                 "    \"age\": 18,\n" +
                 "    \"ischangeLevel\": false,\n" +
                 "    \"level\": 23\n" +
-                "}",Person.class);
-        Log.i("chunyu-test",person.toString());
-
+                "}", Person.class);
+        Log.i("chunyu-test", person.toString());
     }
 
     public void synchronousGet() {
@@ -72,19 +123,22 @@ public class OkHttpActivity extends AppCompatActivity {
         }
     }
 
-    public void asynchronousGet(){
+    public void asynchronousGet() {
         Request request = new Request.Builder()
                 .url("http://publicobject.com/helloworld.txt")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException e) {
+            @Override
+            public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
 
-            @Override public void onResponse(Call call, Response response) throws IOException {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
                 try (ResponseBody responseBody = response.body()) {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
 
                     Headers responseHeaders = response.headers();
                     for (int i = 0, size = responseHeaders.size(); i < size; i++) {
@@ -97,32 +151,31 @@ public class OkHttpActivity extends AppCompatActivity {
         });
     }
 
-    public void postString () {
-         final MediaType MEDIA_TYPE_MARKDOWN
+    public void postString() {
+        final MediaType MEDIA_TYPE_MARKDOWN
                 = MediaType.parse("text/x-markdown; charset=utf-8");
 
 
+        String postBody = ""
+                + "Releases\n"
+                + "--------\n"
+                + "\n"
+                + " * _1.0_ May 6, 2013\n"
+                + " * _1.1_ June 15, 2013\n"
+                + " * _1.2_ August 11, 2013\n";
 
-            String postBody = ""
-                    + "Releases\n"
-                    + "--------\n"
-                    + "\n"
-                    + " * _1.0_ May 6, 2013\n"
-                    + " * _1.1_ June 15, 2013\n"
-                    + " * _1.2_ August 11, 2013\n";
+        Request request = new Request.Builder()
+                .url("https://api.github.com/markdown/raw")
+                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
+                .build();
 
-            Request request = new Request.Builder()
-                    .url("https://api.github.com/markdown/raw")
-                    .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, postBody))
-                    .build();
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
-            try (Response response = client.newCall(request).execute()) {
-                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                System.out.println(response.body().string());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            System.out.println(response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
