@@ -53,7 +53,7 @@ public class OkHttpActivity extends AppCompatActivity {
         try {
             ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, 0);
             readaFileByLine(new File("/sdcard/chunyu-test/litepal.xml"));
-            writeFile(new File("/sdcard/chunyu-test/env.txt"));
+//            writeFile(new File("/sdcard/chunyu-test/env.txt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
