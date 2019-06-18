@@ -1,6 +1,5 @@
 package com.chunyu.utils;
 
-import android.util.Log;
 
 import java.lang.reflect.InvocationTargetException;
 
