@@ -21,6 +21,7 @@ import com.chunyu.annotations.RandomInt;
 import com.chunyu.annotations.RandomString;
 import com.chunyu.utils.RandomUtil;
 
+import java.io.IOException;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 
@@ -73,8 +74,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-
+        RandomUtil.inject(MainActivity.this);
         setSupportActionBar(mToolbar);
         initView();
         initPagerAdapterAndTabs();
@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity
 //                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
 //                startActivity(intent);
 
-                RandomUtil.inject(MainActivity.this);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
