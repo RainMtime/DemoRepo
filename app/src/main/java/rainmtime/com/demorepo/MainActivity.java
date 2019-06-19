@@ -19,15 +19,12 @@ import android.view.View;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
 import rainmtime.com.demorepo.test_code.TestActivity;
-import rainmtime.com.demorepo.test_code.dagger2.ActivityComponent;
-import rainmtime.com.demorepo.test_code.dagger2.UserModel;
 import rainmtime.com.demorepo.test_code.okhttp.OkHttpActivity;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
@@ -60,12 +57,8 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
 
-    @Inject
-    UserModel mUserModel;
 
     String randomStr;
-
-    private ActivityComponent mActivityComponent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +71,10 @@ public class MainActivity extends AppCompatActivity
         initPagerAdapterAndTabs();
 
 
-//        //dagger2 代码片段
-//        dagger2Test();
         //动态代理测试代码
         dynamicProxyTest();
     }
 
-
-//    private void dagger2Test() {
-//        mActivityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule()).build();
-//        mActivityComponent.inject(this);
-//    }
 
     private void dynamicProxyTest() {
         DynamicProxy inter = new DynamicProxy(new Vendor());
