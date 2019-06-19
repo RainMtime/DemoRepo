@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.chenenyu.router.Router;
 import com.chunyu.annotations.RandomInt;
 import com.chunyu.annotations.RandomString;
 import com.chunyu.utils.RandomUtil;
@@ -128,6 +129,9 @@ public class MainActivity extends AppCompatActivity
                 //测试okhttp相关代码
 //                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
 //                startActivity(intent);
+
+                Router.build("test").go(MainActivity.this);
+
 
             }
         });

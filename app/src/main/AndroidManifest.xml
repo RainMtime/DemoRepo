@@ -35,6 +35,7 @@
 
         <activity android:name=".test_code.stickerbubbleanimtest.StickerBubbleActivity" />
         <activity android:name=".test_code.okhttp.OkHttpActivity" />
+        <activity android:name=".test_code.routertest.RouterTestActivity" />
     </application>
 
 </manifest>
