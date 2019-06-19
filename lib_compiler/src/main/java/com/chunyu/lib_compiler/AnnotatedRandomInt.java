@@ -12,26 +12,27 @@ import javax.lang.model.util.Types;
 /**
  * Created by 雨时光 on 2019-06-18 19:19
  */
-public class AnnotatedRandomInt extends AnnotatedRandomElement  {
+class AnnotatedRandomInt extends AnnotatedRandomElement {
 
     private int minValue;
     private int maxValue;
 
-    public AnnotatedRandomInt(Element element) {
+    AnnotatedRandomInt(Element element) {
         super(element);
         minValue = element.getAnnotation(RandomInt.class).minValue();
         maxValue = element.getAnnotation(RandomInt.class).maxValue();
     }
 
     @Override
-    boolean isTypeValid(Elements elements, Types types) {
-        return  element.asType().getKind().equals(TypeKind.INT);
+    public boolean isTypeValid(Elements elements, Types types) {
+        return element.asType().getKind().equals(TypeKind.INT);
     }
-
 
     @Override
-    String getRandomValue() {
-        Random random  = new Random();
+    public String getRandomValue() {
+        Random random = new Random();
         return "" + (minValue + random.nextInt(maxValue - minValue + 1));
     }
+
 }
+

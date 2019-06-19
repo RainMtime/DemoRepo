@@ -12,9 +12,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.chunyu.annotations.RandomInt;
+import com.chunyu.annotations.RandomString;
+import com.chunyu.utils.RandomUtil;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -57,14 +62,18 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.tabs)
     TabLayout mTabLayout;
 
+    @RandomString
+    public String randomStr;
 
-    String randomStr;
+    @RandomInt
+    public int num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
 
         setSupportActionBar(mToolbar);
         initView();
@@ -117,8 +126,10 @@ public class MainActivity extends AppCompatActivity
 //                startActivity(intent1);
 
                 //测试okhttp相关代码
-                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
+//                startActivity(intent);
+
+                RandomUtil.inject(MainActivity.this);
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

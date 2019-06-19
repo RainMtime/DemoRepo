@@ -17,7 +17,7 @@ public abstract class AnnotatedRandomElement {
     Name elementName;
     TypeMirror elementType;
 
-    public AnnotatedRandomElement(Element element) {
+    AnnotatedRandomElement(Element element) {
         this.element = element;
         elementName = element.getSimpleName();
         simpleClassName = element.getEnclosingElement().getSimpleName();
@@ -54,7 +54,7 @@ public abstract class AnnotatedRandomElement {
                 + "Element type : " + elementType.toString() + "\n";
     }
 
-    abstract  boolean isTypeValid(Elements elements , Types types);
+    abstract boolean isTypeValid(Elements elements, Types types);
 
     abstract String getRandomValue();
 }

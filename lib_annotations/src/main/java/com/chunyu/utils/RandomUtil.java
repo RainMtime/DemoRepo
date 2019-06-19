@@ -1,6 +1,7 @@
 package com.chunyu.utils;
 
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
@@ -16,19 +17,12 @@ public class RandomUtil {
     }
 
     public static void inject(Object object) {
-
-//        try {
-//
-//        } catch (ClassNotFoundException e) {
-//            Log.e("TAG", "Meaningful Message", e);
-//        } catch (NoSuchMethodException e) {
-//            Log.e("TAG", "Meaningful Message", e);
-//        } catch (IllegalAccessException e) {
-//            Log.e("TAG", "Meaningful Message", e);
-//        } catch (InstantiationException e) {
-//            Log.e("TAG", "Meaningful Message", e);
-//        } catch (InvocationTargetException e) {
-//            Log.e("TAG", "Meaningful Message", e);
-//        }
+        try {
+            Class bindingClass = Class.forName(object.getClass().getCanonicalName() + RANDOM_SUFFIX);
+            Constructor constructor = bindingClass.getConstructor(object.getClass());
+            constructor.newInstance(object);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

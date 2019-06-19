@@ -10,24 +10,24 @@ import javax.lang.model.util.Types;
 /**
  * Created by 雨时光 on 2019-06-18 21:50
  */
-public class AnnotatedRandomString extends AnnotatedRandomElement {
+class AnnotatedRandomString extends AnnotatedRandomElement {
 
     private static final String QUALIFIER_STRING = "java.lang.String";
     private static final String SEED = "ABCDEFGHJKLMNOPRSTUVYZabcdefghjklmnoprstuvyz";
 
-    public AnnotatedRandomString(Element element) {
+    AnnotatedRandomString(Element element) {
         super(element);
     }
 
     @Override
-    boolean isTypeValid(Elements elements, Types types) {
+    public boolean isTypeValid(Elements elements, Types types) {
         TypeMirror elementType = element.asType();
         TypeMirror string = elements.getTypeElement(QUALIFIER_STRING).asType();
-        return types.isSameType(elementType ,string);
+        return types.isSameType(elementType, string);
     }
 
     @Override
-    String getRandomValue() {
+    public String getRandomValue() {
         StringBuilder builder = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
