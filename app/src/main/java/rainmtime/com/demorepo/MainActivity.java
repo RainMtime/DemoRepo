@@ -27,14 +27,11 @@ import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
 import rainmtime.com.demorepo.test_code.TestActivity;
 import rainmtime.com.demorepo.test_code.dagger2.ActivityComponent;
-import rainmtime.com.demorepo.test_code.dagger2.ActivityModule;
-import rainmtime.com.demorepo.test_code.dagger2.DaggerActivityComponent;
 import rainmtime.com.demorepo.test_code.dagger2.UserModel;
 import rainmtime.com.demorepo.test_code.okhttp.OkHttpActivity;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
 import rainmtime.com.demorepo.test_code.proxy_test.Vendor;
-import rainmtime.com.demorepo.test_code.stickerbubbleanimtest.StickerBubbleActivity;
 import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -66,6 +63,8 @@ public class MainActivity extends AppCompatActivity
     @Inject
     UserModel mUserModel;
 
+    String randomStr;
+
     private ActivityComponent mActivityComponent;
 
     @Override
@@ -73,22 +72,23 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         setSupportActionBar(mToolbar);
         initView();
         initPagerAdapterAndTabs();
 
 
-        //dagger2 代码片段
-        dagger2Test();
+//        //dagger2 代码片段
+//        dagger2Test();
         //动态代理测试代码
         dynamicProxyTest();
     }
 
 
-    private void dagger2Test() {
-        mActivityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule()).build();
-        mActivityComponent.inject(this);
-    }
+//    private void dagger2Test() {
+//        mActivityComponent = DaggerActivityComponent.builder().activityModule(new ActivityModule()).build();
+//        mActivityComponent.inject(this);
+//    }
 
     private void dynamicProxyTest() {
         DynamicProxy inter = new DynamicProxy(new Vendor());
