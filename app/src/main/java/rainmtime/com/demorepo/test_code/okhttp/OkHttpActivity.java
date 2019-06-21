@@ -15,6 +15,7 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.EventListener;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -28,6 +29,7 @@ import okio.Okio;
 import okio.Sink;
 import okio.Source;
 import rainmtime.com.demorepo.test_code.okhttp.bean.Person;
+import rainmtime.com.demorepo.test_code.okhttp.listener.OkHttpEventListener;
 
 /**
  * Created by 人间一小雨 on 2019-05-28 22:17
@@ -50,13 +52,15 @@ public class OkHttpActivity extends AppCompatActivity {
 //            }
 //        }.start();
 
-        try {
-            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, 0);
-            readaFileByLine(new File("/sdcard/chunyu-test/litepal.xml"));
-//            writeFile(new File("/sdcard/chunyu-test/env.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            ActivityCompat.requestPermissions(this, PERMISSIONS_STORAGE, 0);
+//            readaFileByLine(new File("/sdcard/chunyu-test/litepal.xml"));
+////            writeFile(new File("/sdcard/chunyu-test/env.txt"));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        asynchronousGet();
     }
 
 
@@ -100,13 +104,17 @@ public class OkHttpActivity extends AppCompatActivity {
     }
 
     public void synchronousGet() {
+
+//        OkHttpClient.Builder builder = new OkHttpClient.Builder().eventListenerFactory()
+//        OkHttpEventListener listener = new OkHttpEventListener();
+        OkHttpClient client1 = new OkHttpClient.Builder().build();
         Request request = new Request.Builder()
                 .url("https://publicobject.com/helloworld.txt")
                 .build();
 
         Response response = null;
         try {
-            response = client.newCall(request).execute();
+            response = client1.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,11 +132,12 @@ public class OkHttpActivity extends AppCompatActivity {
     }
 
     public void asynchronousGet() {
+        OkHttpClient client1 = new OkHttpClient.Builder().eventListenerFactory(new OkHttpEventListener.OKHttpEventListenerFactory()).build();
         Request request = new Request.Builder()
-                .url("http://publicobject.com/helloworld.txt")
+                .url("https://www.baidu.com")
                 .build();
 
-        client.newCall(request).enqueue(new Callback() {
+        client1.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

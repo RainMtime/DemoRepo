@@ -126,11 +126,12 @@ public class MainActivity extends AppCompatActivity
 //                Intent intent1 = new Intent(MainActivity.this, StickerBubbleActivity.class);
 //                startActivity(intent1);
 
-                //测试okhttp相关代码
-//                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
-//                startActivity(intent);
+//                测试okhttp相关代码
+                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
+                startActivity(intent);
+                //测试Rotuter 相关代码
+//                Router.build("test").go(MainActivity.this);
 
-                Router.build("test").go(MainActivity.this);
 
 
             }
