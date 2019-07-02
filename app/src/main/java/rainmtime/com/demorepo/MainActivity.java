@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 import rainmtime.com.demorepo.movies.adapter.MainViewPagerAdapter;
 import rainmtime.com.demorepo.movies.ui.MovieFragment;
 import rainmtime.com.demorepo.test_code.TestActivity;
+import rainmtime.com.demorepo.test_code.floating_wndow.FloatingWindowActivity;
 import rainmtime.com.demorepo.test_code.okhttp.OkHttpActivity;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
@@ -127,11 +128,13 @@ public class MainActivity extends AppCompatActivity
 //                startActivity(intent1);
 
 //                测试okhttp相关代码
-                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, OkHttpActivity.class);
+//                startActivity(intent);
                 //测试Rotuter 相关代码
 //                Router.build("test").go(MainActivity.this);
-
+                 //测试添加悬浮窗逻辑
+//                Intent intent = new Intent(MainActivity.this, FloatingWindowActivity.class);
+//                startActivity(intent);
 
 
             }
