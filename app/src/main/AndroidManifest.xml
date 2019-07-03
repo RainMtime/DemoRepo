@@ -39,8 +39,10 @@
         <activity android:name=".test_code.okhttp.OkHttpActivity" />
         <activity android:name=".test_code.routertest.RouterTestActivity" />
         <activity android:name=".test_code.floating_wndow.FloatingWindowActivity" />
+        <activity android:name=".test_code.webview.WebViewActivity"/>
 
         <service android:name=".test_code.floating_wndow.FloatingWindowManagerService"/>
+
     </application>
 
 </manifest>

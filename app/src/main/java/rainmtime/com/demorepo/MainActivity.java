@@ -37,6 +37,7 @@ import rainmtime.com.demorepo.test_code.okhttp.OkHttpActivity;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
 import rainmtime.com.demorepo.test_code.proxy_test.Vendor;
+import rainmtime.com.demorepo.test_code.webview.WebViewActivity;
 import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -132,10 +133,12 @@ public class MainActivity extends AppCompatActivity
 //                startActivity(intent);
                 //测试Rotuter 相关代码
 //                Router.build("test").go(MainActivity.this);
-                 //测试添加悬浮窗逻辑
+                //测试添加悬浮窗逻辑
 //                Intent intent = new Intent(MainActivity.this, FloatingWindowActivity.class);
 //                startActivity(intent);
-
+                //测试添加相关的webview 逻辑
+//                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+//                startActivity(intent);
 
             }
         });

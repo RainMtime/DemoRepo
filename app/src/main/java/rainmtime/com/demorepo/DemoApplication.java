@@ -1,7 +1,9 @@
 package rainmtime.com.demorepo;
 
 import android.app.Application;
+import android.os.Build;
 import android.support.v7.app.AppCompatDelegate;
+import android.webkit.WebView;
 
 import com.facebook.stetho.Stetho;
 
@@ -30,11 +32,15 @@ public class DemoApplication extends Application {
 
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
-                      .enableDumpapp(
-                              Stetho.defaultDumperPluginsProvider(this))
-                      .enableWebKitInspector(
-                              Stetho.defaultInspectorModulesProvider(this))
-                      .build());
+                        .enableDumpapp(
+                                Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(
+                                Stetho.defaultInspectorModulesProvider(this))
+                        .build());
+        //开启debug webview 的能力
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
 
         //全局功能对象
         if (sInitialized.compareAndSet(false, true)) {
