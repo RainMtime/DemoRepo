@@ -40,6 +40,7 @@
         <activity android:name=".test_code.routertest.RouterTestActivity" />
         <activity android:name=".test_code.floating_wndow.FloatingWindowActivity" />
         <activity android:name=".test_code.webview.WebViewActivity"/>
+        <activity android:name=".test_code.NormalActivity.NormalActivty"/>
 
         <service android:name=".test_code.floating_wndow.FloatingWindowManagerService"/>
 
