@@ -62,6 +62,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:0.5'
     implementation 'com.google.code.gson:gson:2.6.2'
     implementation project(':lib_annotations')
+    implementation ('com.tencent:droid-thread-profiler:0.5.7-armeabi-v7a')
     kapt project(':lib_compiler')
 
 }
