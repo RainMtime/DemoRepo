@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
    <rainmtime.com.demorepo.test_code.NormalActivity.HeaderDetailLayout
        android:id="@+id/header_detail"
@@ -10,5 +11,20 @@
        android:layout_height="300dp">
 
    </rainmtime.com.demorepo.test_code.NormalActivity.HeaderDetailLayout>
+
+   <Button
+       android:id="@+id/btn"
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:text="添加一个线程"/>
+
+  <SeekBar
+      android:id="@+id/seek_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:max="4000"
+      android:min="2000"/>
+
+
 
 </LinearLayout>

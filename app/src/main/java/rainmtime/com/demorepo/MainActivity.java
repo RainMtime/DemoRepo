@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         mFabLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+//         NormalActivty.testURL();
                 //测试嵌套滚动行为
 //                Intent intent = new Intent(MainActivity.this, NestedActivity.class);
 //                startActivity(intent);
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity
 //                startActivity(intent);
                 //测试添加相关的webview 逻辑
 //                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-//                startActivity(intent);
+////                startActivity(intent);
                 Intent intent = new Intent(MainActivity.this, NormalActivty.class);
                 startActivity(intent);
 

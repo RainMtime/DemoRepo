@@ -2,8 +2,8 @@ package rainmtime.com.demorepo.test_code.okhttp;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -11,11 +11,14 @@ import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.EventListener;
+import okhttp3.Dns;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -60,7 +63,50 @@ public class OkHttpActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
-        asynchronousGet();
+//        asynchronousGet();
+
+        testIPV6();
+
+        new Thread() {
+            @Override
+            public void run() {
+                testDNSParse("www.baidu.com");
+                testDNSParse("1111::5555:6666:b465:310b");
+                testDNSParse("180.101.49.11");
+            }
+        }.start();
+
+    }
+
+    public static void testIPV6() {
+        Request request = new Request.Builder().url("https://www.baidu.com/s?wd=%E5%91%A8%E6%9D%B0%E4%BC%A6&rsv_spt=1&rsv_iqid=0xa108897e00334acb&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=21&rsv_sug1=18&rsv_sug7=100&rsv_sug2=0&inputT=3834&rsv_sug4=5081").build();
+        Request request1 = new Request.Builder().url("https://[1111::5555:6666:180.101.49.11]:443/s?wd=%E5%91%A8%E6%9D%B0%E4%BC%A6&rsv_spt=1&rsv_iqid=0xa108897e00334acb&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=21&rsv_sug1=18&rsv_sug7=100&rsv_sug2=0&inputT=3834&rsv_sug4=5081").build();
+        Request request2 = new Request.Builder().url("https://180.101.49.11/s?wd=%E5%91%A8%E6%9D%B0%E4%BC%A6&rsv_spt=1&rsv_iqid=0xa108897e00334acb&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=21&rsv_sug1=18&rsv_sug7=100&rsv_sug2=0&inputT=3834&rsv_sug4=5081").build();
+        Request request3 = new Request.Builder().url("https://180.101.49.11/s?wd=%E5%91%A8%E6%9D%B0%E4%BC%A6&rsv_spt=1&rsv_iqid=0xa108897e00334acb&issp=1&f=8&rsv_bp=1&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=21&rsv_sug1=18&rsv_sug7=100&rsv_sug2=0&inputT=3834&rsv_sug4=5081").build();
+
+        printLog(request);
+        printLog(request1);
+        printLog(request2);
+
+    }
+
+    public static void testDNSParse(String host) {
+        Log.i("chunyu-dns", "host:" + host);
+        try {
+            List<InetAddress> list = Dns.SYSTEM.lookup(host);
+            for (int i = 0; i < list.size(); i++) {
+                final InetAddress inetAddress = list.get(i);
+                if (inetAddress != null) {
+                    Log.i("chunyu-dns", inetAddress.getHostAddress());
+                }
+            }
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void printLog(@NonNull Request request) {
+        Log.w("chunyu-host", " host:" + request.url().host());
     }
 
 
