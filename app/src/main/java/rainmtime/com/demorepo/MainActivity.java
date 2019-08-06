@@ -34,6 +34,7 @@ import rainmtime.com.demorepo.movies.ui.MovieFragment;
 import rainmtime.com.demorepo.test_code.NormalActivity.NormalActivty;
 import rainmtime.com.demorepo.test_code.TestActivity;
 import rainmtime.com.demorepo.test_code.floating_wndow.FloatingWindowActivity;
+import rainmtime.com.demorepo.test_code.ndkui.NdkActivity;
 import rainmtime.com.demorepo.test_code.okhttp.OkHttpActivity;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity
                 //测试添加相关的webview 逻辑
 //                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
 ////                startActivity(intent);
-                Intent intent = new Intent(MainActivity.this, NormalActivty.class);
+                Intent intent = new Intent(MainActivity.this, NdkActivity.class);
                 startActivity(intent);
 
             }
