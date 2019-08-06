@@ -15,7 +15,7 @@ android {
 
         ndk{
             moduleName "test-jni"
-            abiFilters "armeabi","armeabi-v7a","x86";
+            abiFilters "armeabi-v7a","x86";
         }
     }
     buildTypes {
@@ -23,12 +23,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
-        externalNativeBuild {
-            ndkBuild {
-                path 'src/main/jni/Android.mk'
-            }
-        }
+//        上面是通过Android.mk方式构建
+//        externalNativeBuild {
+//            ndkBuild {
+//                path 'src/main/jni/Android.mk'
+//            }
+//        }
 
 //        sourceSets.main {
 //            jni.srcDirs = []
@@ -51,6 +51,11 @@ android {
         }
     }
     compileOptions.incremental = false
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
 }
 
 dependencies {
