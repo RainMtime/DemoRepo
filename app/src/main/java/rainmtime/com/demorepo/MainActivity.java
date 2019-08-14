@@ -141,8 +141,13 @@ public class MainActivity extends AppCompatActivity
                 //测试添加相关的webview 逻辑
 //                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
 ////                startActivity(intent);
-                Intent intent = new Intent(MainActivity.this, NdkActivity.class);
-                startActivity(intent);
+                //测试jni编程相关
+//                Intent intent = new Intent(MainActivity.this, NdkActivity.class);
+//                startActivity(intent);
+                //测试线程监控相关：
+                 Intent  intent = new Intent(MainActivity.this,NormalActivty.class);
+                 startActivity(intent);
+
 
             }
         });

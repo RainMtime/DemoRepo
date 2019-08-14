@@ -93,43 +93,73 @@ public class NormalActivty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                new Thread() {
-                    @Override
-                    public void run() {
-                        super.run();
-                        InetAddress addr = null;
-                        String ip = "";
-                        String localIp = "";
-                        try {
-                            URL url = new
-                                    URL("https://www.baidu.com");
-                            addr = getHostAndName(url);
-//                            InetAddress localAddr = InetAddress.getLocalHost();
-                            InetAddress localAddr = getLocalAddress();
+                 new Thread(){
+                     @Override
+                     public void run() {
+                         super.run();
+                         try {
+                             stack1();
+                             sleep(5*1000L);
+                         } catch (InterruptedException e) {
+                             e.printStackTrace();
+                         }
+                     }
+                 }.start();
 
-                            localIp = localAddr.toString();
-//                            ip = addr.getHostAddress();
-                            ip = addr.toString();
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        }
-                        Log.i("chunyu-test", "iP:" + ip + "localIp:" + localIp);
-
-                        Log.i("chunyu-test","localIp:"+getLocalAddress());
-
-                        try {
-                            useHttpUrlConnection();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-                }.start();
+//                new Thread() {
+//                    @Override
+//                    public void run() {
+//                        super.run();
+//                        InetAddress addr = null;
+//                        String ip = "";
+//                        String localIp = "";
+//                        try {
+//                            URL url = new
+//                                    URL("https://www.baidu.com");
+//                            addr = getHostAndName(url);
+////                            InetAddress localAddr = InetAddress.getLocalHost();
+//                            InetAddress localAddr = getLocalAddress();
+//
+//                            localIp = localAddr.toString();
+////                            ip = addr.getHostAddress();
+//                            ip = addr.toString();
+//                        } catch (MalformedURLException e) {
+//                            e.printStackTrace();
+//                        }
+//                        Log.i("chunyu-test", "iP:" + ip + "localIp:" + localIp);
+//
+//                        Log.i("chunyu-test","localIp:"+getLocalAddress());
+//
+//                        try {
+//                            useHttpUrlConnection();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//
+//                    }
+//                }.start();
 
 
             }
         });
+    }
+
+
+    private void stack1(){
+        stack2();
+
+    }
+
+    private void stack2(){
+     stack3();
+    }
+
+    private void stack3(){
+       Thread thread = Thread.currentThread();
+       thread.getStackTrace();
+
+       Log.i("chunyu-stack:",Log.getStackTraceString(new Throwable()));
     }
 
 

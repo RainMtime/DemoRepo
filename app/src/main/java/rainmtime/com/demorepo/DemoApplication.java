@@ -8,8 +8,6 @@ import android.util.Log;
 import android.webkit.WebView;
 
 import com.facebook.stetho.Stetho;
-import com.tencent.droidthreadprofiler.ThreadCreationCallback;
-import com.tencent.droidthreadprofiler.ThreadProfiler;
 
 import org.litepal.LitePal;
 
@@ -51,24 +49,5 @@ public class DemoApplication extends Application {
             GlobalContext.set(new GlobalContext(this));
         }
 
-        //对线程监控
-        ThreadProfiler.init(this, new ThreadCreationCallback() {
-            @Override
-            public void onThreadCreating(@Nullable Thread creationThread, long creationThreadTid, long childThreadTid, @Nullable String javaStack, @Nullable String nativeStack) {
-                //  通过调用new Thread (或者native层) 创建线程时回调
-                String msg = "createing thread childThreadTid:" + childThreadTid + "javaStack：" + javaStack + "nativeStack:" + nativeStack;
-                Log.i("chunyu-test", msg);
-            }
-
-            @Override
-            public void onThreadCreated(long currentThreadTid, @Nullable String currentThreadName, @Nullable String creationThreadName, @Nullable String javaStack, @Nullable String nativeStack) {
-                Log.w("chunyu-test", "created thread:" + currentThreadTid);
-            }
-
-            @Override
-            public void onThreadExiting(long currentThreadTid, @Nullable String currentThreadName, @Nullable String creationThreadName, @Nullable String javaStack, @Nullable String nativeStack) {
-                Log.e("chunyu-test", "thread exited:" + currentThreadTid);
-            }
-        });
     }
 }
