@@ -12,12 +12,34 @@ android {
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi-v7a", "x86";
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++11 -fno-exceptions -fvisibility=hidden"
+                arguments '-DANDROID_STL=c++_static', '-DANDROID_PLATFORM=android-14'
+            }
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+//        上面是通过Android.mk方式构建
+//        externalNativeBuild {
+//            ndkBuild {
+//                path 'src/main/jni/Android.mk'
+//            }
+//        }
+
+//        sourceSets.main {
+//            jni.srcDirs = []
+//            jniLibs.srcDirs = ['src/main/jniLibs']
+//        }
         beta {
             debuggable true
             jniDebuggable false
@@ -30,16 +52,23 @@ android {
         abi {
             enable true
             reset()
-            include 'x86', 'armeabi-v7a','x86_64'
+            include 'armeabi', "x86"
             universalApk true
         }
     }
     compileOptions.incremental = false
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation(name:'open', ext:'aar')
+    implementation(name: 'open', ext: 'aar')
+    compileOnly 'io.github.landerlyoung:jenny-annotation:0.1.0'
+//    kapt 'io.github.landerlyoung:jenny-compiler:0.1.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:support-vector-drawable:26.1.0'
     implementation 'com.android.support:animated-vector-drawable:26.1.0'

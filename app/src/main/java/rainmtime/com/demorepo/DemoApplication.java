@@ -2,7 +2,9 @@ package rainmtime.com.demorepo;
 
 import android.app.Application;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.webkit.WebView;
 
 import com.facebook.stetho.Stetho;
@@ -46,5 +48,6 @@ public class DemoApplication extends Application {
         if (sInitialized.compareAndSet(false, true)) {
             GlobalContext.set(new GlobalContext(this));
         }
+
     }
 }
