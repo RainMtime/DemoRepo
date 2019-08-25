@@ -42,6 +42,7 @@
         <activity android:name=".test_code.webview.WebViewActivity"/>
         <activity android:name=".test_code.NormalActivity.NormalActivty"/>
         <activity android:name=".test_code.ndkui.NdkActivity"/>
+        <activity android:name=".test_code.webview.HookDNSActivity" />
 
         <service android:name=".test_code.floating_wndow.FloatingWindowManagerService"/>
 

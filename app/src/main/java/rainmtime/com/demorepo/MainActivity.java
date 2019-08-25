@@ -39,6 +39,7 @@ import rainmtime.com.demorepo.test_code.okhttp.OkHttpActivity;
 import rainmtime.com.demorepo.test_code.proxy_test.DynamicProxy;
 import rainmtime.com.demorepo.test_code.proxy_test.Sell;
 import rainmtime.com.demorepo.test_code.proxy_test.Vendor;
+import rainmtime.com.demorepo.test_code.webview.HookDNSActivity;
 import rainmtime.com.demorepo.test_code.webview.WebViewActivity;
 import rainmtime.com.demorepo.utils.ResUtils;
 
@@ -145,9 +146,11 @@ public class MainActivity extends AppCompatActivity
 //                Intent intent = new Intent(MainActivity.this, NdkActivity.class);
 //                startActivity(intent);
                 //测试线程监控相关：
-                 Intent  intent = new Intent(MainActivity.this,NormalActivty.class);
-                 startActivity(intent);
-
+//                 Intent  intent = new Intent(MainActivity.this,NormalActivty.class);
+//                 startActivity(intent);
+                //测试hook dns 逻辑
+                Intent intent = new Intent(MainActivity.this, HookDNSActivity.class);
+                startActivity(intent);
 
             }
         });
