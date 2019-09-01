@@ -8,6 +8,7 @@ import android.util.Log;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.Inet4Address;
@@ -45,7 +46,7 @@ public class HookDNSActivity extends AppCompatActivity {
             public void run() {
                 InetAddress[] result = new InetAddress[0];
                 try {
-                    result = InetAddress.getAllByName("www.baidu.com");
+                    result = InetAddress.getAllByName("172.21.7.230");
                     if (result != null) {
                         ArrayList<InetAddress> lists = new ArrayList<>(Arrays.asList(result));
                         for (InetAddress item : lists) {
@@ -53,6 +54,8 @@ public class HookDNSActivity extends AppCompatActivity {
                         }
                     }
                 } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                } catch (Exception e){
                     e.printStackTrace();
                 }
             }

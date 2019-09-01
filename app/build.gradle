@@ -15,7 +15,7 @@ android {
 
 
         ndk {
-            abiFilters "armeabi-v7a", "x86","x86_64"
+            abiFilters "armeabi-v7a"
         }
 
         externalNativeBuild {
@@ -53,7 +53,7 @@ android {
         abi {
             enable true
             reset()
-            include 'armeabi-v7a', "x86","x86_64"
+            include 'armeabi-v7a'
             universalApk true
         }
     }

@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,21 +19,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class DNSHookUtils {
 
-    private DNSHookUtils (){
+    private DNSHookUtils() {
 
     }
 
     private AtomicBoolean hasInit = new AtomicBoolean(false);
 
-    private  static  DNSHookUtils sInstance;
+    private static DNSHookUtils sInstance;
 
 
+    public static DNSHookUtils getInstance() {
 
-    public static DNSHookUtils getInstance(){
-
-        if (sInstance == null){
-            synchronized (DNSHookUtils.class){
-                if (sInstance == null){
+        if (sInstance == null) {
+            synchronized (DNSHookUtils.class) {
+                if (sInstance == null) {
                     sInstance = new DNSHookUtils();
                 }
             }
@@ -40,9 +40,9 @@ public class DNSHookUtils {
         return sInstance;
     }
 
-    public void init(){
-        if (hasInit.compareAndSet(false,true)){
-          doDnsHook();
+    public void init() {
+        if (hasInit.compareAndSet(false, true)) {
+            doDnsHook();
         }
     }
 
@@ -62,11 +62,30 @@ public class DNSHookUtils {
             //构建动态代理InetAddressImpl 对象
             Object dynamicImpl = Proxy.newProxyInstance(originalImpl.getClass().getClassLoader(), originalImpl.getClass().getInterfaces(), new InvocationHandler() {
 
-
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    Log.i("chunyu-test","method:"+method.getName());
-                    if (method.getName().equals("lookupAllHostAddr") && args != null && args.length == 2) {
+                    Class<?> returnType = method.getReturnType();
+
+                    Class<?>[] paramsTpye = method.getParameterTypes();
+
+                    boolean isReturnValid = false;
+                    boolean isArg1Valid = false;
+                    boolean isArg2Valid = false;
+                    int argSize = -1;
+                    isReturnValid = returnType != null && "InetAddress[]".equals(returnType.getSimpleName());
+                    if (paramsTpye != null) {
+                        if (paramsTpye.length == 2) {
+                            isArg1Valid = "String".equals(paramsTpye[0].getSimpleName());
+                            isArg2Valid = "int".equals(paramsTpye[1].getSimpleName());
+                            argSize = paramsTpye.length;
+                        } else {
+                            argSize = paramsTpye.length;
+                        }
+                    }
+
+                    Log.w("chunyu-test", "argSize:" + argSize + "isReturnValid:" + isReturnValid + "\t isArg1Valid:" + isArg1Valid + "isArg2Valid:" + isArg2Valid);
+
+                    if (method.getName().equals("lookupAllHostAddr") && isReturnValid && isArg1Valid && isArg2Valid && argSize == 2) {
                         Log.i("chunyu-test", "lookupAllHostAddr:" + args[0]);
 
                         InetAddress[] result = (InetAddress[]) method.invoke(originalImpl, args);
@@ -74,11 +93,11 @@ public class DNSHookUtils {
                         List<InetAddress> arrayList = new ArrayList<>(Arrays.asList(result));
 
                         Iterator<InetAddress> iterator = arrayList.iterator();
-                        while (iterator.hasNext()){
+                        while (iterator.hasNext()) {
                             InetAddress item = iterator.next();
 
-                            if (item!=null && "180.101.49.12".equals(item.getHostAddress())){
-                                Log.i("chunyu-test","删除地址成功：180.101.49.12");
+                            if (item != null && "180.101.49.12".equals(item.getHostAddress())) {
+                                Log.i("chunyu-test", "删除地址成功：180.101.49.12");
                                 iterator.remove();
                             }
                         }
