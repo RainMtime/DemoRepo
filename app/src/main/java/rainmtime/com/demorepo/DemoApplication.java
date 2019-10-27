@@ -32,13 +32,13 @@ public class DemoApplication extends Application {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         LitePal.initialize(this);
 
-        Stetho.initialize(
-                Stetho.newInitializerBuilder(this)
-                        .enableDumpapp(
-                                Stetho.defaultDumperPluginsProvider(this))
-                        .enableWebKitInspector(
-                                Stetho.defaultInspectorModulesProvider(this))
-                        .build());
+//        Stetho.initialize(
+//                Stetho.newInitializerBuilder(this)
+//                        .enableDumpapp(
+//                                Stetho.defaultDumperPluginsProvider(this))
+//                        .enableWebKitInspector(
+//                                Stetho.defaultInspectorModulesProvider(this))
+//                        .build());
         //开启debug webview 的能力
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);

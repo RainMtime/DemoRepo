@@ -41,6 +41,7 @@ import rainmtime.com.demorepo.test_code.proxy_test.Sell;
 import rainmtime.com.demorepo.test_code.proxy_test.Vendor;
 import rainmtime.com.demorepo.test_code.webview.HookDNSActivity;
 import rainmtime.com.demorepo.test_code.webview.WebViewActivity;
+import rainmtime.com.demorepo.utils.IpUtils;
 import rainmtime.com.demorepo.utils.ResUtils;
 
 public class MainActivity extends AppCompatActivity
@@ -149,9 +150,9 @@ public class MainActivity extends AppCompatActivity
 //                 Intent  intent = new Intent(MainActivity.this,NormalActivty.class);
 //                 startActivity(intent);
                 //测试hook dns 逻辑
-                Intent intent = new Intent(MainActivity.this, HookDNSActivity.class);
-                startActivity(intent);
-
+//                Intent intent = new Intent(MainActivity.this, HookDNSActivity.class);
+//                startActivity(intent);
+                 testIpValid();
             }
         });
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -159,6 +160,23 @@ public class MainActivity extends AppCompatActivity
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
         mNavigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void testIpValid(){
+         ArrayList<String> ips = new ArrayList<>();
+          ips.add("1.2.3.4");
+          ips.add("119.260.123.123");
+          ips.add("www.baidu.cn.com");
+          ips.add("127.0.198.255:80");
+          ips.add("::1");
+          ips.add("1080::8:800:200C:417A");
+          ips.add("1080:0:0:0:8:800:200C:417A");
+          ips.add("0:0:0:0:0:0:0:1");
+          ips.add("0:0:0:8:800:200C:417A");
+
+          for (int i=0;i<ips.size();i++){
+              Log.i("chunyu-ips","ip:"+ips.get(i)+"valid:"+ (IpUtils.isIPv4LiteralAddress(ips.get(i))||IpUtils.isIPv6LiteralAddress(ips.get(i))));
+          }
     }
 
 
